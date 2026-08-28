@@ -1,0 +1,1777 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="noindex, nofollow">
+<title>ПРАВО-ДВИЖОК — прототип рантайма (Таиланд)</title>
+<style>
+:root{
+  --bg:#ffffff;
+  --surface:#f5f6f8;
+  --surface-2:#eef0f4;
+  --line:#dcdfe6;
+  --line-soft:#e8eaef;
+  --ink:#16181d;
+  --ink-2:#40454f;
+  --muted:#5b6270;
+  --accent:#14356b;
+  --accent-soft:#eaf0fb;
+  --ok:#0f6b45;
+  --ok-soft:#e6f3ec;
+  --warn:#8a5a00;
+  --warn-soft:#fdf2df;
+  --risk:#9b2c20;
+  --risk-soft:#fdecea;
+  --radius:14px;
+  --radius-sm:10px;
+  --shadow:0 1px 2px rgba(16,20,30,.06),0 8px 24px rgba(16,20,30,.07);
+  --maxw:44rem;
+  --fs-body:1rem;
+  --sp:1rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:var(--fs-body)/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-wrap:break-word;
+}
+h1,h2,h3,h4{line-height:1.25;margin:0;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+ul{margin:0;padding-left:1.15em}
+a{color:var(--accent);text-underline-offset:2px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 1rem}
+
+/* ---------- header ---------- */
+.top{
+  position:sticky;top:0;z-index:30;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-soft);
+}
+.top__in{display:flex;align-items:center;gap:.6rem;min-height:52px;padding:.4rem 1rem;max-width:var(--maxw);margin:0 auto}
+.brand{display:flex;align-items:center;gap:.5rem;font-weight:700;letter-spacing:-.02em;font-size:.98rem}
+.brand__mark{
+  width:26px;height:26px;flex:0 0 26px;border-radius:7px;background:var(--accent);color:#fff;
+  display:grid;place-items:center;font-size:.78rem;font-weight:700
+}
+.brand__sub{font-weight:500;color:var(--muted);font-size:.78rem}
+@media (max-width:22.5rem){.brand__sub{display:none}.brand{font-size:.9rem}}
+.top__spacer{margin-left:auto}
+.btn-ghost{
+  background:none;border:1px solid var(--line);border-radius:999px;
+  padding:.35rem .7rem;font-size:.82rem;color:var(--ink-2);cursor:pointer
+}
+.btn-ghost:hover{background:var(--surface)}
+
+/* ---------- generic ---------- */
+main{padding:1.25rem 0 2rem}
+.view[hidden]{display:none}
+.stack>*+*{margin-top:1rem}
+.stack-s>*+*{margin-top:.55rem}
+.lead{color:var(--ink-2);font-size:1rem}
+.small{font-size:.85rem;color:var(--muted)}
+.tiny{font-size:.78rem;color:var(--muted)}
+
+.card{
+  background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1rem;box-shadow:var(--shadow)
+}
+.card--flat{box-shadow:none;background:var(--surface)}
+
+/* ---------- search ---------- */
+.hero h1{font-size:1.5rem;margin-bottom:.4rem}
+.searchbox{display:flex;flex-direction:column;gap:.55rem;margin-top:.9rem}
+.searchbox label{font-weight:600;font-size:.88rem}
+.searchrow{display:flex;gap:.5rem}
+.searchrow input{
+  flex:1 1 auto;min-width:0;
+  padding:.8rem .9rem;font-size:1rem;
+  border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)
+}
+.searchrow input::placeholder{color:#818897}
+.searchrow input:focus{background:#fff;border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.btn{
+  border:1px solid var(--accent);background:var(--accent);color:#fff;
+  border-radius:12px;padding:.8rem 1rem;font-weight:600;cursor:pointer;white-space:nowrap
+}
+.btn:hover{filter:brightness(1.12)}
+.btn--wide{width:100%;text-align:center;white-space:normal;overflow-wrap:anywhere}
+.btn--sec{background:#fff;color:var(--accent)}
+.btn--sec:hover{background:var(--accent-soft);filter:none}
+
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
+.chip{
+  border:1px solid var(--line);background:var(--surface);border-radius:999px;
+  padding:.4rem .75rem;font-size:.85rem;cursor:pointer;color:var(--ink-2)
+}
+.chip:hover{background:var(--surface-2);border-color:#c9cdd8}
+
+/* ---------- lists ---------- */
+.pick{display:grid;gap:.55rem;margin-top:.2rem}
+.pick__item{
+  display:block;width:100%;text-align:left;cursor:pointer;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:.8rem .9rem
+}
+.pick__item:hover{border-color:var(--accent);background:var(--accent-soft)}
+.pick__t{font-weight:650;font-size:.98rem;display:block}
+.pick__d{display:block;color:var(--muted);font-size:.84rem;margin-top:.15rem}
+
+/* ---------- badges ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:.28rem;
+  border-radius:999px;padding:.16rem .5rem;font-size:.74rem;font-weight:600;
+  border:1px solid transparent;white-space:nowrap
+}
+.badge--ok{background:var(--ok-soft);color:var(--ok);border-color:#bfe0cf}
+.badge--warn{background:var(--warn-soft);color:var(--warn);border-color:#eed9ae}
+.badge--risk{background:var(--risk-soft);color:var(--risk);border-color:#f0c4bd}
+.badge--n{background:var(--surface-2);color:var(--ink-2);border-color:var(--line)}
+
+/* ---------- norm chip ---------- */
+.nref{
+  display:inline-flex;align-items:center;gap:.2rem;
+  font:600 .78rem/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  background:var(--accent-soft);color:var(--accent);
+  border:1px solid #c9d8f2;border-radius:6px;
+  padding:.16rem .34rem;cursor:pointer;vertical-align:baseline
+}
+.nref:hover{background:#dbe6f9;border-color:var(--accent)}
+.nref--u{background:var(--warn-soft);color:var(--warn);border-color:#eed9ae}
+.nref--u:hover{background:#f8e8c8}
+
+/* ---------- scenario ---------- */
+.crumb{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem}
+.back{
+  background:none;border:none;padding:.2rem 0;color:var(--accent);font-size:.86rem;
+  font-weight:600;cursor:pointer
+}
+.sc-head h1{font-size:1.28rem;margin-bottom:.35rem}
+.metaline{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem}
+
+.banner{
+  border-radius:var(--radius-sm);padding:.7rem .8rem;font-size:.88rem;
+  border:1px solid;display:flex;gap:.5rem;align-items:flex-start
+}
+.banner--warn{background:var(--warn-soft);border-color:#eed9ae;color:#63430a}
+.banner--risk{background:var(--risk-soft);border-color:#f0c4bd;color:#7d241a}
+.banner--info{background:var(--accent-soft);border-color:#c9d8f2;color:#123059}
+.banner b{font-weight:700}
+
+.sect{margin-top:1.4rem}
+.sect__h{font-size:1.02rem;margin-bottom:.55rem;display:flex;align-items:center;gap:.4rem}
+.sect__h::before{content:"";width:3px;height:1.05em;background:var(--accent);border-radius:2px;flex:0 0 3px}
+
+.entry{display:grid;gap:.5rem}
+.entry__row{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius-sm);padding:.7rem .8rem}
+.entry__q{font-weight:650;font-size:.9rem}
+.entry__v{font-size:.88rem;color:var(--ink-2);margin-top:.2rem}
+
+.step{
+  border:1px solid var(--line);border-radius:var(--radius);padding:.9rem;
+  background:#fff;box-shadow:var(--shadow)
+}
+.step+.step{margin-top:.7rem}
+.step__top{display:flex;gap:.6rem;align-items:flex-start}
+.step__n{
+  flex:0 0 auto;min-width:2rem;height:2rem;padding:0 .4rem;border-radius:8px;
+  background:var(--accent);color:#fff;display:grid;place-items:center;
+  font-size:.85rem;font-weight:700
+}
+.step__t{font-size:1rem;padding-top:.2rem}
+.step__a{margin-top:.6rem;font-size:.94rem;color:var(--ink-2)}
+.kv{margin:.7rem 0 0;display:grid;gap:.45rem}
+.kv__r{display:grid;grid-template-columns:1fr;gap:.1rem;padding:.5rem .6rem;background:var(--surface);border-radius:8px}
+.kv__k{font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+.kv__v{font-size:.9rem}
+.risks{margin-top:.7rem;background:var(--risk-soft);border:1px solid #f2d2cc;border-radius:var(--radius-sm);padding:.6rem .7rem}
+.risks__h{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--risk)}
+.risks ul{margin-top:.3rem;font-size:.88rem;color:#6f2318}
+.risks li+li{margin-top:.25rem}
+.norms{margin-top:.7rem;display:flex;flex-wrap:wrap;gap:.3rem;align-items:center}
+.norms__l{font-size:.76rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-right:.15rem}
+
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:var(--radius-sm);margin-top:.7rem}
+.tablehint{font-size:.76rem;color:var(--muted);margin-top:.3rem}
+@media (min-width:48rem){.tablehint{display:none}}
+table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.85rem;background:#fff}
+th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{background:var(--surface);font-size:.76rem;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+
+.cta{
+  margin-top:1.3rem;background:var(--accent-soft);border:1px solid #c9d8f2;
+  border-radius:var(--radius);padding:1rem
+}
+.cta h3{font-size:1rem;margin-bottom:.3rem}
+.cta p{font-size:.88rem;color:#294a7d;margin-bottom:.75rem}
+
+/* ---------- modal ---------- */
+.modal[hidden]{display:none}
+.modal{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.modal__bd{position:absolute;inset:0;background:rgba(16,20,30,.45)}
+.modal__box{
+  position:relative;width:100%;max-width:var(--maxw);max-height:92vh;overflow-y:auto;
+  background:#fff;border-radius:18px 18px 0 0;padding:1rem 1rem calc(1.4rem + env(safe-area-inset-bottom));
+  box-shadow:0 -8px 40px rgba(16,20,30,.25)
+}
+@media (min-width:48rem){
+  .modal{align-items:center;padding:1.5rem}
+  .modal__box{border-radius:18px;max-height:86vh}
+}
+.modal__grip{width:38px;height:4px;border-radius:2px;background:var(--line);margin:0 auto .7rem}
+.modal__x{
+  position:absolute;top:.7rem;right:.7rem;width:32px;height:32px;border-radius:50%;
+  border:1px solid var(--line);background:#fff;cursor:pointer;font-size:1rem;line-height:1;
+  display:grid;place-items:center;color:var(--ink-2)
+}
+.nid{font:700 .8rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--accent);letter-spacing:.04em}
+.modal h2{font-size:1.1rem;margin:.35rem 0 .1rem;padding-right:2.2rem}
+.norm-sec{margin-top:.85rem}
+.norm-sec__h{font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-bottom:.25rem}
+.quote{
+  background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+  padding:.6rem .7rem;font-size:.92rem;line-height:1.7
+}
+.quote--th{font-size:1rem;line-height:1.9}
+.srcbtn{
+  display:inline-flex;align-items:center;gap:.4rem;margin-top:.3rem;
+  font-size:.86rem;word-break:break-all
+}
+.disc{
+  margin-top:1rem;background:var(--warn-soft);border:1px solid #eed9ae;border-radius:var(--radius-sm);
+  padding:.65rem .75rem;font-size:.82rem;color:#63430a
+}
+.conf{background:#fff;border:1px dashed var(--line);border-radius:var(--radius-sm);padding:.6rem .7rem;font-size:.86rem}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line-soft);background:var(--surface);margin-top:2rem;padding:1.2rem 0 2rem}
+footer p{font-size:.8rem;color:var(--muted)}
+footer p+p{margin-top:.5rem}
+footer strong{color:var(--ink-2)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top__in">
+    <span class="brand">
+      <span class="brand__mark" aria-hidden="true">ПД</span>
+      <span>ПРАВО-ДВИЖОК<br><span class="brand__sub">Таиланд · прототип рантайма</span></span>
+    </span>
+    <span class="top__spacer"></span>
+    <button class="btn-ghost" type="button" id="home-btn">Начало</button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ============ HOME ============ -->
+  <section class="view wrap hero" id="view-home">
+    <h1>Опишите свою задачу своими словами</h1>
+    <p class="lead">Движок подберёт готовый сценарий: пошаговый порядок действий со ссылками на нормы права Таиланда. Каждая цифра открывается карточкой закона с источником.</p>
+    <form class="searchbox" id="search-form" autocomplete="off">
+      <label for="q">Что вам нужно сделать?</label>
+      <div class="searchrow">
+        <input id="q" name="q" type="search" placeholder="например: купить квартиру" enterkeyhint="search">
+        <button class="btn" type="submit">Найти</button>
+      </div>
+    </form>
+    <div class="chips" id="chips" role="group" aria-label="Примеры запросов"></div>
+    <div id="home-extra" class="stack" style="margin-top:1.4rem"></div>
+  </section>
+
+  <!-- ============ NO MATCH ============ -->
+  <section class="view wrap" id="view-nomatch" hidden></section>
+
+  <!-- ============ QUESTIONS ============ -->
+  <section class="view wrap" id="view-quiz" hidden></section>
+
+  <!-- ============ SCENARIO ============ -->
+  <section class="view wrap" id="view-scenario" hidden></section>
+
+  <!-- ============ PREPARE STUB ============ -->
+  <section class="view wrap" id="view-prepare" hidden></section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Информационный сервис, не юридическая консультация.</strong> Прототип показывает порядок действий и первоисточники норм; он не заменяет лицензированного юриста и не учитывает обстоятельств конкретного дела.</p>
+    <p>Корпус норм проверен: сценарий «Покупка кондоминиума» — <strong>26.08.2026</strong>, сценарий «Долгосрочное пребывание» — <strong>27.08.2026</strong>. У каждой нормы в карточке — своя дата и уровень проверки.</p>
+    <p>Переводы норм на русский — неофициальные. Юридическую силу имеет оригинальный текст на тайском языке (для Immigration Act использован неофициальный английский перевод Office of the Council of State).</p>
+    <p class="tiny">Демо-прототип. Данные — из корпуса ПРАВО-ДВИЖКА; цифры не выдуманы, но статус проверки у части норм — вторичный источник, это помечено в карточках.</p>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal__bd" data-close="1"></div>
+  <div class="modal__box" id="modal-box" tabindex="-1">
+    <div class="modal__grip" aria-hidden="true"></div>
+    <button class="modal__x" type="button" id="modal-x" aria-label="Закрыть карточку нормы">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   СЛОЙ A — НОРМЫ. Блок 1: кондо (N-01…N-18)
+   Источник: ПРАВО-ДВИЖОК/пилот-кондо/01-НОРМЫ.md, ресёрчер + фактчек архивиста 2026-08-26.
+   level: primary = операционный текст первоисточника прочитан;
+          secondary = официальная сводка/конкорданс вторичек;
+          unverified = первоисточник не читан.
+   ============================================================ */
+var DOL_PDF = "https://www.dol.go.th/media/716929789247754240/migration/2025/10/6Wp3Tk7hgK5HdDRuvYXGcNsi.pdf";
+
+var NORMS = {};
+
+NORMS["N-01"] = {
+  title: "Кто из иностранцев вообще может владеть юнитом",
+  act: "Condominium Act B.E. 2522 (พ.ร.บ. อาคารชุด พ.ศ. 2522)",
+  section: "มาตรา 19 · s.19",
+  organ: "Department of Lands (กรมที่ดิน) — правоприменение при регистрации",
+  level: "primary", checked: "2026-08-26",
+  gist: "Пять категорий иностранцев допущены к собственности на юнит: (1) с разрешением на постоянное проживание; (2) допущенные по закону о поощрении инвестиций (BOI); (3) тайское юрлицо, считающееся иностранным; (4) иностранное юрлицо с investment promotion certificate; (5) иностранец, который ввёз в Королевство иностранную валюту, либо снял средства со счёта в батах нерезидента, либо со счёта в иностранной валюте. Ветка 19(5) — путь обычного покупателя.",
+  orig: { lang: "th", label: "Тайский оригинал, s.19(5)", text: "คนต่างด้าวซึ่งนำเงินตราต่างประเทศเข้ามาในราชอาณาจักร หรือถอนเงินจากบัญชีเงินบาทของบุคคลที่มีถิ่นที่อยู่นอกประเทศ หรือถอนเงินจากบัญชีเงินฝากเงินตราต่างประเทศ" },
+  ru: "Иностранец, который ввёз иностранную валюту в Королевство, либо снял средства со счёта в тайских батах лица, проживающего вне Королевства, либо со счёта в иностранной валюте.",
+  src: [{ t: "Консолидированный текст Акта, PDF Земельного департамента (тайский, машиночитаемый, 47 стр.)", u: DOL_PDF },
+        { t: "Неофициальный английский перевод (Thailand Law Online)", u: "https://www.thailandlawonline.com/translations/condominium-law-thai-condo-act" }],
+  notes: ["Сноска источника: «มาตรา ๑๙ (๕) แก้ไขเพิ่มเติมโดยพระราชบัญญัติอาคารชุด (ฉบับที่ ๓) พ.ศ. ๒๕๔๒» — редакция ветки 19(5) от Акта №3 B.E. 2542."]
+};
+
+NORMS["N-02"] = {
+  title: "Квота иностранной собственности — 49% площади",
+  act: "Condominium Act B.E. 2522",
+  section: "มาตรา 19 ทวิ · s.19 bis",
+  organ: "Department of Lands (контроль на регистрации)",
+  level: "primary", checked: "2026-08-26",
+  gist: "Суммарная собственность иностранцев в одном кондоминиуме — не более 49% совокупной площади всех юнитов (доля считается ПО ПЛОЩАДИ, не по числу юнитов), причём доля определяется на момент подачи заявления о регистрации кондоминиума по s.6.",
+  orig: { lang: "th", label: "Тайский оригинал, s.19 bis", text: "…ถือกรรมสิทธิ์ในห้องชุดได้เมื่อรวมกันแล้วต้องไม่เกินอัตราร้อยละสี่สิบเก้าของเนื้อที่ของห้องชุดทั้งหมดในอาคารชุดนั้นในขณะที่ขอจดทะเบียนอาคารชุดตามมาตรา ๖" },
+  ru: "…могут владеть юнитами при условии, что суммарно это не превышает 49 процентов площади всех юнитов в этом кондоминиуме — на момент подачи заявления о регистрации кондоминиума по статье 6.",
+  src: [{ t: "Консолидация DOL (тайский первоисточник)", u: DOL_PDF }],
+  conflict: {
+    who: "Страница посольства Таиланда (Тель-Авив)",
+    claims: "публикует дореформенную редакцию: квота «ร้อยละสี่สิบ» (40%) и порог банковского письма $5 000",
+    u: "https://telaviv.thaiembassy.org/th/page/51060",
+    verdict: "Проиграла первоисточнику: в консолидации Земельного департамента s.19 bis читается «ร้อยละสี่สิบเก้า» (49%). Урок корпуса: официальность источника ≠ его свежесть."
+  },
+  notes: ["⚠️ История изменения 40%→49% — unverified: вторичка приписывала её Акту №3 B.E. 2542, но официальная сноска говорит «แก้ไขเพิ่มเติมโดยพระราชบัญญัติอาคารชุด (ฉบับที่ ๔) พ.ศ. ๒๕๕๑». Акт, впервые установивший 49%, не установлен (ratchakitcha отдаёт 403)."]
+};
+
+NORMS["N-03"] = {
+  title: "Какие доказательства требует Land Office от иностранца",
+  act: "Condominium Act B.E. 2522",
+  section: "มาตรา 19 ตรี · s.19 ter",
+  organ: "Компетентный чиновник Land Office (พนักงานเจ้าหน้าที่)",
+  level: "primary", checked: "2026-08-26",
+  gist: "При регистрации перехода права к иностранцу предъявляется доказательство его категории по s.19. Для категории 19(5) — доказательство ввоза иностранной валюты (или снятия со счёта нерезидента в батах / валютного счёта) НА СУММУ НЕ МЕНЕЕ ЦЕНЫ ЮНИТА. Порога в долларах здесь нет вовсе.",
+  orig: { lang: "th", label: "Тайский оригинал, s.19 ter(5)", text: "ต้องแสดงหลักฐานการนำเงินตราต่างประเทศเข้ามาในราชอาณาจักร หรือหลักฐานการถอนเงินจากบัญชีเงินบาทของบุคคลที่มีถิ่นที่อยู่นอกประเทศ หรือถอนเงินจากบัญชีเงินฝากเงินตราต่างประเทศ ในจำนวนไม่น้อยกว่าค่าห้องชุดที่จะซื้อ" },
+  ru: "Необходимо предъявить доказательство ввоза иностранной валюты в Королевство, либо доказательство снятия средств со счёта в тайских батах лица, проживающего вне Королевства, либо со счёта в иностранной валюте — в сумме не менее цены приобретаемого юнита.",
+  src: [{ t: "Консолидация DOL (тайский первоисточник)", u: DOL_PDF }],
+  notes: ["Ключ ко всему валютному блоку: юнит за $30 000 требует такого же полного доказательства, как юнит за $300 000. Тезис «ниже USD 50 000 можно проще» неверен — см. N-07."]
+};
+
+NORMS["N-04"] = {
+  title: "Обязанность продать юнит (до 1 года) и уведомить за 60 дней",
+  act: "Condominium Act B.E. 2522",
+  section: "มาตรา 19 เบญจ · s.19 quinque (санкция — s.66)",
+  organ: "Department of Lands; при неисполнении — принудительная продажа Director-General",
+  level: "primary", checked: "2026-08-26",
+  gist: "Иностранец обязан распорядиться юнитом в срок до 1 года, если: наследство/иное приобретение вывело за квоту 49%; аннулирован residence permit; депортация; отозван BOI-промоушен. Отдельный, более ранний дедлайн — письменно уведомить чиновника в 60 дней с момента наступления основания. Санкция за неуведомление (s.66): штраф до 10 000 бат и дополнительно до 500 бат в день. Объём продажи различается: при выходе за квоту продаётся только превышение; при отзыве ВНЖ / депортации / отзыве BOI — все юниты в собственности.",
+  orig: { lang: "th", label: "Тайский оригинал (уведомление и санкция)", text: "ต้องแจ้งเป็นหนังสือให้พนักงานเจ้าหน้าที่ทราบภายในกำหนดเวลาหกสิบวันนับแต่วันที่มีเหตุต้องจำหน่าย … ต้องระวางโทษปรับไม่เกินหนึ่งหมื่นบาท และปรับอีกไม่เกินวันละห้าร้อยบาท" },
+  ru: "Обязан письменно уведомить компетентного чиновника в течение шестидесяти дней со дня наступления основания для отчуждения… Наказывается штрафом до десяти тысяч бат и дополнительно штрафом до пятисот бат в день.",
+  src: [{ t: "Консолидация DOL (тайский первоисточник)", u: DOL_PDF }],
+  notes: ["Годичный срок отсчитывается от даты приобретения права ЛИБО от даты отзыва разрешения — по конкретному случаю: «ไม่เกินหนึ่งปีนับแต่วันที่ได้มาซึ่งกรรมสิทธิ์ในห้องชุด หรือวันที่ถูกเพิกถอน…»."]
+};
+
+NORMS["N-05"] = {
+  title: "Справка об отсутствии долгов по общим расходам (debt-free)",
+  act: "Condominium Act B.E. 2522 (в ред. Акта №4 B.E. 2551)",
+  section: "มาตรา 29 · s.29",
+  organ: "Land Office (регистрация) + юрлицо кондоминиума (นิติบุคคลอาคารชุด) — выдаёт справку",
+  level: "primary", checked: "2026-08-26",
+  gist: "Регистрация перехода права возможна только при наличии свежей письменной справки от юрлица кондоминиума о том, что юнит свободен от задолженности по общим расходам (s.18). Менеджер обязан выдать справку в 15 дней. Долг продавца по common fees — блокер сделки.",
+  orig: { lang: "th", label: "Тайский оригинал, s.29", text: "พนักงานเจ้าหน้าที่จะรับจดทะเบียน…ได้เมื่อห้องชุดดังกล่าวปลอดจากหนี้อันเกิดจากค่าใช้จ่ายตามมาตรา ๑๘ โดยต้องมีหนังสือรับรองการปลอดหนี้คราวที่สุดจากนิติบุคคลอาคารชุดมาแสดง … ภายในสิบห้าวันนับแต่วันที่ได้รับคำร้องขอและเจ้าของร่วมได้ชำระหนี้…ครบถ้วนแล้ว" },
+  ru: "Чиновник вправе зарегистрировать переход права только когда юнит свободен от долгов по расходам по статье 18, и представлена последняя по времени справка юрлица кондоминиума об отсутствии долга… в течение пятнадцати дней со дня получения заявления И полного погашения долга сособственником.",
+  src: [{ t: "Консолидация DOL (тайский первоисточник)", u: DOL_PDF }],
+  notes: ["15 дней отсчитываются от ОБЕИХ дат сразу — подачи заявления и полного погашения долга, а не от одной.",
+          "Исключение (абз. 4): требование справки НЕ применяется к переходу права, совершённому до регистрации юрлица кондоминиума — то есть при покупке у застройщика в новом проекте."]
+};
+
+NORMS["N-06"] = {
+  title: "Валютный контроль — правовая рамка",
+  act: "Exchange Control Act B.E. 2485 (1942) + Ministerial Regulation No.13 (B.E. 2497), консолидация до No.27",
+  section: "рамка; конкретика — в notices (см. N-07, N-08)",
+  organ: "Ministry of Finance / Bank of Thailand (ธนาคารแห่งประเทศไทย) — Competent Officer",
+  level: "primary", checked: "2026-08-26",
+  gist: "Правовая рамка всех операций с валютой через уполномоченные банки (authorized juristic persons). Операционные правила задаются уведомлениями Competent Officer.",
+  orig: { lang: "en", label: "Официальная страница BOT (свод регулирования)", text: "Foreign exchange regulation consolidation — Bank of Thailand, laws and regulations." },
+  ru: "Свод валютного регулирования Банка Таиланда: акт 1942 года и подзаконные правила, консолидированные BOT.",
+  src: [{ t: "BOT — консолидация валютного регулирования", u: "https://www.bot.or.th/en/our-roles/financial-markets/foreign-exchange-regulations/fx-regulation-consolidation.html" },
+        { t: "Exchange Control Act, PDF (EN, unofficial translation, хостер — BOT)", u: "https://www.bot.or.th/content/dam/bot/documents/en/laws-and-rules/laws-and-regulations/legal-department/3-fx-act/3.1%20LAW03_ExchangeControlAct.pdf" }],
+  notes: ["Verified как рамка (страница BOT прочитана); полный текст акта в прогоне 26.08.2026 не разбирался."]
+};
+
+NORMS["N-07"] = {
+  title: "FET / подтверждение банка о переводе — порога USD 50 000 НЕТ",
+  act: "ประกาศเจ้าพนักงานควบคุมการแลกเปลี่ยนเงิน (Notice of the Competent Officer, BOT), консолидация до ฉบับที่ ๓๗",
+  section: "ข้อ ๔๔ (действующая норма) · ข้อ ๑๘ Notice №26 (переходная, истекла)",
+  organ: "Bank of Thailand; форму выдаёт уполномоченный банк-получатель",
+  level: "primary", checked: "2026-08-26",
+  gist: "ДЕЙСТВУЮЩЕГО ПОРОГА USD 50 000 НЕТ. Банк обязан выдать подтверждение операции (หลักฐานประกอบการทำธุรกรรม) на ЛЮБУЮ сумму покупки/продажи/зачисления/снятия валюты, с реквизитами: личность заявителя, сумма, дата, назначение платежа; копия — клиенту. Такое подтверждение и есть официально предписанная форма.",
+  orig: { lang: "th", label: "Тайский оригинал, ข้อ ๔๔ (в ред. Notice №26)", text: "บุคคลใดประสงค์จะขอซื้อ ขาย ฝาก ถอน เงินตราต่างประเทศ … ให้นิติบุคคลรับอนุญาตออกหลักฐานประกอบการทำธุรกรรม … ต้องสำแดงข้อมูลระบุตัวตนของผู้ขอทำธุรกรรม จำนวนเงิน วันเดือนปีที่รับทำธุรกรรม และรายละเอียดของวัตถุประสงค์ในการทำธุรกรรม … ให้ถือว่าหลักฐานประกอบการทำธุรกรรมที่ออกโดยนิติบุคคลรับอนุญาตดังกล่าวเป็นแบบที่เจ้าพนักงานกำหนด" },
+  ru: "Кто желает купить, продать, внести или снять иностранную валюту — уведомляет уполномоченное лицо… После совершения операции уполномоченное лицо выдаёт подтверждение операции, в котором должны быть указаны данные заявителя, сумма, дата операции и детали её назначения… Такое подтверждение считается формой, установленной компетентным должностным лицом.",
+  src: [{ t: "BOT, консолидированное уведомление Competent Officer (тайский, 58 стр., прочитано целиком)", u: "https://www.bot.or.th/content/dam/bot/documents/th/our-roles/financial-markets/foreign-exchange-regulations/FX-Regulation/Consol/BOT_FXregulation_consol_no37.pdf" },
+        { t: "Историческое уведомление 31.03 B.E. 2547 (порог USD 20 000)", u: "https://www.bot.or.th/content/dam/bot/fipcs/documents/FOG/2547/EngPDF/25471507.pdf" }],
+  debunk: "АНТИ-ФАКТ: «FET-форма обязательна от USD 50 000». Цифра 50 000 существует только в переходном пункте ข้อ ๑๘ Notice №26 — это 360-дневная отсрочка, позволявшая банкам временно оформлять старую FET-форму вместо нового подтверждения. Notice №26 опубликован в Royal Gazette 17.10.2560 (17.10.2017), отсрочка выдохлась около октября 2018 года. Вторичка (samuiforsale, propertyscout) таскает эту цифру как действующую норму.",
+  conflict: {
+    who: "Профильная вторичка о покупке недвижимости",
+    claims: "«перевод ≥ USD 50 000 → FET-форма, меньше — можно проще»",
+    u: "https://www.samuiforsale.com/condominium/foreign-exchange-transaction-form.html",
+    verdict: "Опровергнуто первоисточником BOT: подтверждение выдаётся на любую сумму, а критерий Земельного офиса вообще другой — не менее цены юнита (N-03)."
+  }
+};
+
+NORMS["N-08"] = {
+  title: "Подтверждающие документы от USD 200 000; счета нерезидентов (NRBA)",
+  act: "Свод «Exchange Control Regulation» BOT + แนวปฏิบัติของธนาคารพาณิชย์ (действует с 01.12.2025); действующая пара уведомлений — ฉบับที่ ๓๒ (18.04.2565) и ฉบับที่ ๓๔ (01.09.2568)",
+  section: "п. 2.4 руководства для банков",
+  organ: "Bank of Thailand",
+  level: "primary", checked: "2026-08-26",
+  gist: "(а) При операциях от USD 200 000 банк запрашивает подтверждающие документы (кроме клиентов, прошедших KYB). (б) Non-Resident Baht Account (NRBA) может использоваться в том числе для инвестиций в недвижимость — это канал s.19 ter(5) «снятие со счёта в батах нерезидента»; NRBS — только ценные бумаги. (в) Вывод средств за рубеж — через уполномоченный банк.",
+  orig: { lang: "th", label: "Тайский оригинал, п. 2.4", text: "สำหรับลูกค้าที่ไม่ผ่านกระบวนการ KYB ที่ทำธุรกรรมตั้งแต่ 200,000 ดอลลาร์ สรอ. หรือเทียบเท่า ต้องแสดงเอกสารหลักฐานดังกล่าว" },
+  ru: "Для клиентов, не прошедших процедуру KYB, при операциях от 200 000 долларов США или эквивалента — требуется представить указанные подтверждающие документы.",
+  src: [{ t: "BOT — Exchange Control Regulation", u: "https://www.bot.or.th/en/our-roles/financial-markets/foreign-exchange-regulations/exchange-control-regulation.html" },
+        { t: "BOT — руководство для коммерческих банков по валютным операциям (с 01.12.2025)", u: "https://www.bot.or.th/content/dam/bot/documents/th/our-roles/financial-markets/foreign-exchange-regulations/FX-Regulation/FX%20regulation%20guideline_1%20dec%2025.pdf" }],
+  notes: ["⚠️ Прямой нормы «репатриация выручки от продажи кондо» на странице BOT нет. Практика (вторичка): FET/доказательство ввоза упрощает обратный вывод средств — держать пакет вечно.",
+          "⚠️ Цифра-двойник: USD 50 000 в системе BOT есть, но это годовой лимит безвозмездных переводов (gift/grant) за рубеж — другая норма, к покупке кондо отношения не имеет."]
+};
+
+NORMS["N-09"] = {
+  title: "Сбор за регистрацию перехода права — 2% от оценочной стоимости",
+  act: "กฎกระทรวง กำหนดค่าธรรมเนียมและค่าใช้จ่ายเกี่ยวกับอาคารชุด พ.ศ. ๒๕๕๓ (Ministerial Regulation, B.E. 2553 / 2010), издано по s.5 абз.1 и s.61 Акта",
+  section: "ข้อ ๑ (๗)(ก)",
+  organ: "Department of Lands (Land Office), касса в день регистрации",
+  level: "primary", checked: "2026-08-26",
+  gist: "2% от оценочной стоимости юнита (ราคาประเมินทุนทรัพย์ по Land Code). Дата подписания правила — 01.09.2010. По закону плательщик не назначен: деление 50/50 между покупателем и продавцом — ОБЫЧАЙ и предмет договора, а не норма.",
+  orig: { lang: "th", label: "Тайский оригинал, ข้อ ๑ (๗)(ก)", text: "(๗) ค่าจดทะเบียนสิทธิและนิติกรรม (ก) ค่าจดทะเบียนสิทธิและนิติกรรมมีทุนทรัพย์ เรียกตามราคาประเมินทุนทรัพย์ตามที่คณะกรรมการกำหนดราคาประเมินทุนทรัพย์ตามประมวลกฎหมายที่ดินกำหนด ร้อยละ ๒" },
+  ru: "(7) Плата за регистрацию прав и сделок. (а) Регистрация возмездной сделки — взимается по оценочной стоимости, определённой комитетом по оценке согласно Земельному кодексу, в размере 2 процентов.",
+  src: [{ t: "Консолидация DOL, стр. 41–43 (тайский первоисточник)", u: DOL_PDF }],
+  notes: ["Потолок ставки установлен приложением к самому Акту (в ред. Акта №4 B.E. 2551), п.(๗)(ก) = 2% — правило 2553 года выбирает весь законный максимум.",
+          "⚠️ Утверждение «при покупке у застройщика с покупателя нельзя брать больше половины сбора» первоисточником НЕ подтверждено (архивист искал в ประกาศคณะกรรมการว่าด้วยสัญญา / สคบ.). Подавать как обычай, не как норму.",
+          "Ловушка: в том же перечне ข้อ ๑ (๗)(ค) стоит ร้อยละ ๐.๕ — но это сбор за регистрацию наследства/дарения между родителями-детьми или супругами, а НЕ гербовый сбор из N-12. Ипотека — (ง), ร้อยละ ๑."]
+};
+
+NORMS["N-10"] = {
+  title: "Временная льгота 0,01% — только для тайских физлиц",
+  act: "Два уведомления Министерства внутренних дел (ประกาศกระทรวงมหาดไทย) от 30.06.2569 по резолюции кабинета 30.06.2026; механизм ставки — กฎกระทรวง พ.ศ. ๒๕๕๓",
+  section: "ข้อ ๑ (๗)(ช) правила 2553 + уведомление по кондо",
+  organ: "Ministry of Interior / Department of Lands",
+  level: "secondary", checked: "2026-08-26",
+  gist: "Сбор за регистрацию перехода 2% → 0,01% и сбор за регистрацию ипотеки 1% → 0,01% для жилья (включая кондо). Условие ТРОЙНОЕ: цена сделки И оценочная стоимость И сумма ипотеки — каждая не выше 7 млн бат. Срок действия: 01.07.2026 – 30.06.2027. Мера заявлена ТОЛЬКО для физлиц с тайским гражданством. Льгота касается исключительно сборов — налоги (WHT, SBT, гербовый сбор) взимаются полностью.",
+  orig: { lang: "th", label: "Публикация Department of Lands, дословно", text: "ให้เรียกเก็บค่าจดทะเบียนการโอนห้องชุดและค่าจดทะเบียนการจำนองห้องชุด … ร้อยละ 0.01 … ซึ่งมีราคาซื้อขายและราคาประเมินทุนทรัพย์ไม่เกิน 7 ล้านบาท และวงเงินจำนองไม่เกิน 7 ล้านบาท … มาตรการดังกล่าวใช้สำหรับบุคคลธรรมดาที่มีสัญชาติไทย และมีผลบังคับใช้ตั้งแต่วันที่ 1 กรกฎาคม 2569 ถึงวันที่ 30 มิถุนายน 2570 … ทั้งนี้ ภาษีเงินได้หัก ณ ที่จ่าย และภาษีธุรกิจเฉพาะหรืออากรแสตมป์ ยังคงจัดเก็บตามอัตราที่กฎหมายกำหนด" },
+  ru: "Взимать плату за регистрацию перехода права на юнит и за регистрацию ипотеки юнита в размере 0,01% — при цене сделки и оценочной стоимости не выше 7 млн бат и сумме ипотеки не выше 7 млн бат… Мера применяется для физических лиц с тайским гражданством и действует с 1 июля 2569 (2026) по 30 июня 2570 (2027)… При этом налог у источника, специальный налог на бизнес и гербовый сбор по-прежнему взимаются по установленным законом ставкам.",
+  src: [{ t: "Department of Lands — публикация от 01.07.2026 (официальный источник органа-исполнителя)", u: "https://www.dol.go.th/phichit/press-release/news-1782882171/" },
+        { t: "Механизм ставки 0,01% — กฎกระทรวง พ.ศ. ๒๕๕๓, ข้อ ๑ (๗)(ช), в консолидации DOL", u: DOL_PDF },
+        { t: "Обзор Tilleke & Gibbins", u: "https://www.tilleke.com/insights/thailand-extends-reduced-property-transfer-and-mortgage-registration-fees/39/" }],
+  debunk: "ГРАБЛИ ИНОСТРАНЦА: тайские блоги и агенты считают сделку по ставке 0,01%. К покупателю-иностранцу она не применяется — он платит полные 2% (N-09).",
+  notes: ["⚠️ Почему статус не «первоисточник»: фраза про тайское гражданство стоит в разделе-резюме ведомства («สรุปรายละเอียด ดังนี้»), а не в цитате операционного пункта самого уведомления. Ограничение утверждается Земельным департаментом — органом, который его применяет, — но текст уведомления на этот счёт не прочитан.",
+          "⚠️ Реквизиты Royal Gazette (เล่ม/ตอน/หน้า) не подтверждены: ratchakitcha.soc.go.th закрыт Cloudflare (403).",
+          "Механизм льготы легален и заложен заранее: ставка 0,01% прописана в правиле 2553 года на случай, «если кабинет министров примет резолюцию об особом снижении сборов» — условия (потолок, срок, гражданство) живут в резолюции и уведомлениях МВД, а не в самом правиле."]
+};
+
+NORMS["N-11"] = {
+  title: "Specific Business Tax (SBT) — 3,3% при владении менее 5 лет",
+  act: "ประมวลรัษฎากร (Revenue Code): ม.91/2(6) — объект, ม.91/6(3) — ставка 3,0% + местный налог 10% от суммы SBT; рамки — พระราชกฤษฎีกา (ฉบับที่ 342) พ.ศ. 2541",
+  section: "ม.91/2(6), ม.91/6(3)",
+  organ: "Revenue Department (สรรพากร); взимается через Land Office при регистрации",
+  level: "primary", checked: "2026-08-26",
+  gist: "Продажа недвижимости физлицом в течение 5 лет с приобретения считается коммерческой → SBT 3,3% (3,0% + 10% местного) от БОЛЬШЕГО из двух: оценочная стоимость или цена сделки. Освобождение: владение 5 лет и более ЛИБО имя продавца в домовой книге (ทะเบียนบ้าน) юнита не менее 1 года. Если уплачен SBT — гербовый сбор не взимается. Платит продавец.",
+  orig: { lang: "th", label: "Памятка Минфина (FPO), дословно", text: "ภาษีธุรกิจเฉพาะ = ราคาซื้อขายหรือราคาประเมินฯ x 3.3% … เสียภาษีในอัตราร้อยละ 3.3 (รวมภาษีท้องถิ่นแล้ว) ของราคาซื้อขายหรือราคาประเมินฯ แล้วแต่อย่างใดจะสูงกว่า" },
+  ru: "Специальный налог на бизнес = (цена сделки или оценочная стоимость) × 3,3%… по ставке 3,3 процента (уже с местным налогом) от цены сделки или оценочной стоимости — той из них, которая выше.",
+  src: [{ t: "Revenue Department — расчёт SBT при продаже недвижимости", u: "https://www.rd.go.th/63775.html" },
+        { t: "Revenue Code, ม.91/6 (ставки)", u: "https://www.rd.go.th/5204.html" },
+        { t: "พระราชกฤษฎีกา (ฉบับที่ 342) พ.ศ. 2541", u: "https://www.rd.go.th/2818.html" }],
+  conflict: {
+    who: "Сам сайт Revenue Department — таблица ставок (и тайская, и английская версии)",
+    claims: "показывает для «การค้าอสังหาริมทรัพย์» ставку 0,1%",
+    u: "https://www.rd.go.th/681.html",
+    verdict: "Разрешено сноской на той же тайской странице: 0,1% — антикризисная льгота по พ.ร.ฎ. (ฉบับที่ 472) พ.ศ. 2551, действовавшая с 29.03.2008 по 28.03.2009 и ИСТЁКШАЯ. Действует 3,0% + 10% местного = 3,3%, подтверждено двумя официальными источниками (RD 63775 и памятка Минфина/FPO)."
+  },
+  notes: ["Исправление корпуса: ставку задаёт ม.91/6(3), а не ม.91/5(6) — ม.91/5 это формулировка налоговой базы, а не ставки."]
+};
+
+NORMS["N-12"] = {
+  title: "Гербовый сбор — 0,5%, если не платился SBT",
+  act: "ประมวลรัษฎากร, บัญชีอัตราอากรแสตมป์ (шкала гербового сбора)",
+  section: "ลักษณะแห่งตราสาร 28(ข)",
+  organ: "Revenue Department, взимается через Land Office",
+  level: "primary", checked: "2026-08-26",
+  gist: "0,5% (1 бат с каждых 200 бат) от большего из двух: цена сделки или оценочная стоимость. Взимается только когда сделка НЕ облагается SBT (владение 5+ лет / домовая книга 1+ год). SBT и гербовый сбор взаимоисключающие — не суммировать. Платит по обычаю продавец (договорное).",
+  orig: { lang: "th", label: "Revenue Department + памятка Минфина", text: "1 บาท ต่อทุก 200 บาท … ราคาขายหรือราคาประเมินทุนทรัพย์ แล้วแต่อย่างใดจะมากกว่า … จะเสียภาษีธุรกิจเฉพาะหรืออากรแสตมป์เพียงอย่างใดอย่างหนึ่งเท่านั้น" },
+  ru: "1 бат с каждых 200 бат (= 0,5%)… от цены продажи или оценочной стоимости — той, которая больше… Уплачивается либо специальный налог на бизнес, либо гербовый сбор — только что-то одно.",
+  src: [{ t: "Revenue Department — расчёт гербового сбора", u: "https://www.rd.go.th/63777.html" }],
+  notes: ["Освобождение найдено в самом изъятии к ลักษณะ 28 («ยกเว้นไม่ต้องเสียอากร ใบรับสำหรับรายรับที่ต้องเสียภาษีมูลค่าเพิ่มหรือภาษีธุรกิจเฉพาะ»).",
+          "⚠️ Ссылка вторички на ม.123 ตรี как основание освобождения первоисточником не подтверждена — снята."]
+};
+
+NORMS["N-13"] = {
+  title: "Налог у источника с продавца (WHT): прогрессия для физлица, 1% для юрлица",
+  act: "ประมวลรัษฎากร: ม.50(5) — расчёт удержания, ม.52 วรรคสอง — момент удержания и запрет регистрации без уплаты, ม.49 ทวิ — база = оценочная стоимость, ม.39 — определение «цены продажи», ม.48(4) — кэп 20%, ม.69 ตรี — 1% для юрлица; вычеты — พ.ร.ฎ. (ฉบับที่ 165) พ.ศ. 2529, ม.4",
+  section: "ม.48(4) / ม.49 ทวิ / ม.52 / ม.69 ตรี",
+  organ: "Revenue Department; удерживает Land Office при регистрации",
+  level: "primary", checked: "2026-08-26",
+  gist: "Продавец-физлицо: база — ОЦЕНОЧНАЯ стоимость (не цена сделки); вычет расходов по годам владения (1 год — 92%, 2 — 84%, 3 — 77%, 4 — 71%, 5 — 65%, 6 — 60%, 7 — 55%, 8 и более — 50%); остаток делится на число лет владения, к результату применяется прогрессивная шкала ПИТ (5–35%), затем результат умножается обратно на число лет. Продавец-юрлицо: 1%. Для покупателя это чужой налог, но в переговорах он часто перекладывается и влияет на полную стоимость сделки.",
+  orig: { lang: "th", label: "Формула — памятка Минфина (FPO), дословно; кэп — ม.48(4)", text: "ภาษีเงินได้บุคคลธรรมดา = [(ราคาประเมินฯ - ค่าใช้จ่าย) ÷ จำนวนปีที่ถือครอง] x อัตราภาษีเงินได้ x จำนวนปีที่ถือครอง … เมื่อคำนวณภาษีแล้วต้องเสียไม่เกินร้อยละ 20 ของราคาขาย" },
+  ru: "Подоходный налог физлица = [(оценочная стоимость − расходы) ÷ число лет владения] × ставка подоходного налога × число лет владения… После расчёта налог не должен превышать 20% цены продажи.",
+  src: [{ t: "Revenue Code, ม.48 (кэп 20%)", u: "https://www.rd.go.th/5937.html" },
+        { t: "Revenue Code, ม.69 ตรี (1% для юрлица)", u: "https://www.rd.go.th/5939.html" },
+        { t: "พ.ร.ฎ. (ฉบับที่ 165) พ.ศ. 2529 — таблица вычетов, сверена 8 из 8", u: "https://www.rd.go.th/2386.html" }],
+  notes: ["Срок владения свыше 10 лет считается за 10; неполный год округляется до года.",
+          "Кэп 20% живёт внутри ม.48(4): он применим к недвижимости наследственной/дарёной либо приобретённой не для торговли и прибыли, и только при расчёте налога отдельно от совокупного дохода.",
+          "⚠️ Не разрешено: база для 1% с юрлица — памятка Минфина пишет «цена сделки», корпус — «большее из (цена; оценка)».",
+          "Методический урок прогона: официальная сводка ≠ первоисточник. Памятка Минфина сжала две нормы в одну строку, из-за чего кэп 20% сначала ошибочно объявили несуществующим; текст кодекса отменил эту правку."]
+};
+
+NORMS["N-14"] = {
+  title: "Форма сделки купли-продажи недвижимости",
+  act: "Civil and Commercial Code (обычно цитируется s.456)",
+  section: "s.456 — ⚠️ первоисточник не собран",
+  organ: "Land Office (регистрация сделки)",
+  level: "unverified", checked: "2026-08-26",
+  gist: "Требование письменной формы и регистрации сделки в Land Office. Практическое следствие: договор без последующей регистрации права не переносит.",
+  ru: "Первоисточник в прогоне 26.08.2026 не собран — кандидат №1 на добор. В прототипе норма показана честно как непроверенная.",
+  src: [], notes: ["⚠️ Статус: unverified. Использовать только как контекст, не как основание."]
+};
+
+NORMS["N-15"] = {
+  title: "Иностранец не может владеть землёй",
+  act: "Land Code B.E. 2497",
+  section: "s.86 — ⚠️ текст не читан",
+  organ: "Department of Lands",
+  level: "unverified", checked: "2026-08-26",
+  gist: "Контекст всего сценария: земля иностранцу закрыта, поэтому фрихолд на юнит кондоминиума — главный легальный путь к собственности.",
+  ru: "Норма зафиксирована как контекст; операционный текст в прогоне не читан.",
+  src: [{ t: "Перевод Land Code (Krisdika), PDF", u: "http://web.krisdika.go.th/data/outsitedata/outsite21/file/Act_Promulgating_the_Land_Code_BE_2497_(1954).pdf" }],
+  notes: ["⚠️ Статус: unverified."]
+};
+
+NORMS["N-16"] = {
+  title: "Ветка «leasehold 30 лет» — риск-ветка, вне скоупа",
+  act: "Civil and Commercial Code (аренда, обычно s.540)",
+  section: "s.540 — ⚠️ текст не читан",
+  organ: "Land Office (регистрация аренды свыше 3 лет)",
+  level: "unverified", checked: "2026-08-26",
+  gist: "Аренда до 30 лет; регистрация аренды свыше 3 лет обязательна. Продление «30+30+30» — договорное обещание, а не вещное право.",
+  ru: "Ветка отмечена в сценарии как рискованная и НЕ детализирована в корпусе.",
+  src: [], notes: ["⚠️ Статус: unverified. В рантайме — предупреждение, не инструкция."]
+};
+
+NORMS["N-17"] = {
+  title: "Ветка «владение через тайскую компанию с номиналами» — незаконна",
+  act: "Land Code s.96 bis / Foreign Business Act B.E. 2542; в Condominium Act есть якорь s.67 (номинальное держание для иностранца)",
+  section: "⚠️ тексты не читаны",
+  organ: "Department of Lands / правоохранительные органы",
+  level: "unverified", checked: "2026-08-26",
+  gist: "Номинальные тайские акционеры запрещены. Риск: принудительная продажа и уголовная ответственность. По якорю s.67 Condominium Act за номинальное держание для иностранца предусмотрено до 2 лет лишения свободы или штраф до 20 000 бат.",
+  ru: "В сценарии — только красный флаг, не инструкция. Детализация не проводилась.",
+  src: [], notes: ["⚠️ Статус: unverified — цифры санкции взяты из пометки корпуса, операционный текст не читан."]
+};
+
+NORMS["N-18"] = {
+  title: "Квота 49% действует; законопроект о 75% — не закон",
+  act: "Condominium Act s.19 bis (действующая квота) + законодательные инициативы",
+  section: "watch-item слоя актуальности",
+  organ: "Парламент Таиланда / Department of Lands",
+  level: "secondary", checked: "2026-08-26",
+  gist: "На дату проверки действует квота 49% (первоисточник — N-02). Предложения поднять её до 75% (в том числе только для отдельных зон) формально в парламент не внесены. Корректная формулировка: «на дату проверки действует 49%; сведений о принятом изменении нет».",
+  ru: "Это негативный факт (отсутствие закона) — первоисточником он не доказывается в принципе, поэтому статус останется вторичным.",
+  src: [{ t: "terms.law — обзор квоты", u: "https://terms.law/Thai/property/condo-foreign-quota.html" },
+        { t: "bektu.com — статус инициатив 2026", u: "https://bektu.com/blog/thailand-99-year-leasehold-75-percent-condo-quota-status-2026" }],
+  notes: ["Косвенное подтверждение актуальности 49%: в консолидации DOL, выложенной в 2025 году, s.19 bis по-прежнему читается «ร้อยละสี่สิบเก้า»."]
+};
+/* ============================================================
+   СЛОЙ A — НОРМЫ. Блок 2: долгосрочное пребывание (V-01…V-23)
+   Источник: ПРАВО-ДВИЖОК/сценарий-визы/01-НОРМЫ.md, ресёрчер 2026-08-27.
+   ============================================================ */
+var IMM_ACT = "https://royalthaipolice.go.th/downloads/laws/laws_03_03-03.pdf";
+var IMM_ACT_2 = "https://www.samutprakanimmigration.go.th/downloads/Immigration_Act.pdf";
+var IMM_NOTE = "⚠️ Тайский оригинал акта (единственно юридически значимый) в прогоне 27.08.2026 не разбирался — использован неофициальный английский перевод Office of the Council of State, размещённый Royal Thai Police.";
+
+NORMS["V-01"] = {
+  title: "Временное пребывание и продления: кто и на сколько пускает",
+  act: "Immigration Act B.E. 2522 (พ.ร.บ. คนเข้าเมือง พ.ศ. 2522)",
+  section: "s.34 (категории), s.35 (сроки и продления)",
+  organ: "Immigration Bureau (สำนักงานตรวจคนเข้าเมือง), Director-General",
+  level: "primary", checked: "2026-08-27",
+  gist: "Сроки по категориям s.34: туризм/транзит/спорт — до 30 дней (s.35(1)); ряд категорий — до 90 дней; работа/учёба/семья/прочее — до 1 года (s.35(3)). Правовой корень ВСЕХ годовых продлений (пенсия, брак, работа): сама виза даёт въезд, а годами живут на extension of stay от иммиграции. Здесь же s.37(1) — запрет работать без разрешения любому временно пребывающему.",
+  orig: { lang: "en", label: "Английский перевод (неофициальный), s.35", text: "In a case where it is necessary for an alien to stay in the Kingdom for a longer period of time…, the Director-General shall be the person to consider granting an extension of stay for a period of not exceeding one year, each time." },
+  ru: "Если иностранцу необходимо оставаться в Королевстве дольше, Генеральный директор рассматривает вопрос о продлении пребывания на срок, не превышающий одного года за раз.",
+  src: [{ t: "Immigration Act, PDF Royal Thai Police (EN, unofficial translation)", u: IMM_ACT },
+        { t: "Копия у офиса иммиграции Samut Prakan", u: IMM_ACT_2 }],
+  notes: [IMM_NOTE]
+};
+
+NORMS["V-02"] = {
+  title: "90-day report — отчёт о месте жительства каждые 90 дней",
+  act: "Immigration Act B.E. 2522",
+  section: "s.37(5); санкция — s.76",
+  organ: "Immigration Bureau (местный офис иммиграции)",
+  level: "primary", checked: "2026-08-27",
+  gist: "При пребывании дольше 90 дней иностранец обязан письменно уведомить чиновника о своём месте жительства, и повторять это каждые 90 дней. Санкция по s.76: штраф до 5 000 бат и ежедневный штраф до 200 бат до устранения нарушения. Выезд из страны обнуляет отсчёт (вторичка). Держателям LTR 90-day report заменён годовым отчётом (V-13).",
+  orig: { lang: "en", label: "Английский перевод, s.37(5) + s.76", text: "Staying in the Kingdom longer than ninety days, an alien shall notify the competent official… of his or her residence, in writing, without delay, upon the completion of a ninety day period. This shall be repeated at every ninety day interval. … a fine not exceeding five thousand baht and a daily fine of not exceeding two hundred baht until full compliance." },
+  ru: "Находясь в Королевстве дольше девяноста дней, иностранец обязан без промедления письменно уведомить компетентного чиновника о своём месте жительства по истечении девяностодневного срока и повторять это каждые девяносто дней. Санкция — штраф до пяти тысяч бат и ежедневный штраф до двухсот бат вплоть до исполнения обязанности.",
+  src: [{ t: "Immigration Act, PDF (EN)", u: IMM_ACT },
+        { t: "Официальный FAQ Samut Prakan Immigration (грейс 7 дней, штраф 2 000)", u: "https://www.samutprakanimmigration.go.th/frequently-asked-questions/" }],
+  notes: ["Практика поверх нормы: окно подачи «за 15 дней до / 7 дней после» и типовой штраф 2 000 бат за просрочку — правила Director-General и практика офисов, а не текст акта. Грейс 7 дней и сумма 2 000 подтверждены официальным FAQ офиса Samut Prakan.",
+          IMM_NOTE]
+};
+
+NORMS["V-03"] = {
+  title: "TM30 — обязанность принимающей стороны сообщить о жильце",
+  act: "Immigration Act B.E. 2522",
+  section: "s.38; санкция — s.77",
+  organ: "Immigration Bureau (офис по месту жилья)",
+  level: "primary", checked: "2026-08-27",
+  gist: "Домовладелец, собственник, владелец жилья или менеджер отеля, принявший иностранца на проживание, обязан уведомить чиновника в течение 24 часов. Обязанность лежит на принимающем — но страдает жилец: без квитанции TM30 офисы отказывают в продлениях и справках. Санкция по s.77: до 2 000 бат; для менеджера отеля — от 2 000 до 10 000 бат.",
+  orig: { lang: "en", label: "Английский перевод, s.38", text: "The householder, the owner or the possessor of a dwelling place or a hotel manager, who takes in, as a resident, an alien… shall notify the competent official… within twenty four hours from the time the alien has taken residence." },
+  ru: "Домовладелец, собственник или владелец жилого помещения либо менеджер отеля, принявший иностранца в качестве проживающего, обязан уведомить компетентного чиновника в течение двадцати четырёх часов с момента заселения.",
+  src: [{ t: "Immigration Act, PDF (EN)", u: IMM_ACT }],
+  conflict: {
+    who: "Официальный FAQ Samut Prakan Immigration",
+    claims: "называет для отелей вилку штрафа «4,000 to 8,000 Baht»",
+    u: "https://www.samutprakanimmigration.go.th/frequently-asked-questions/",
+    verdict: "Не противоречие, а практика назначения ВНУТРИ законной вилки 2 000–10 000 бат из s.77. Класс конфликта: operational-text vs official-FAQ."
+  },
+  notes: [IMM_NOTE]
+};
+
+NORMS["V-04"] = {
+  title: "Выезд гасит разрешение на пребывание; re-entry permit",
+  act: "Immigration Act B.E. 2522",
+  section: "s.39; форма TM8",
+  organ: "Immigration Bureau (офисы и аэропорты)",
+  level: "primary", checked: "2026-08-27",
+  gist: "Если после получения разрешения на временное пребывание иностранец покидает Королевство, разрешение считается прекращённым — кроме случая, когда до выезда получено разрешение на возврат (re-entry permit): тогда сохраняется остаток срока. Главный «самострел» долгосрочников: годовой extension сгорает при любом вылете без re-entry. Сборы: 1 000 бат (однократный) / 3 800 бат (многократный) — вторичка. К DTV, LTR, Privilege и ED PLUS не относится.",
+  orig: { lang: "en", label: "Английский перевод, s.39", text: "If, after having received permission for temporary stay…, the alien leaves the Kingdom, it shall be deemed that the temporary stay permission is terminated." },
+  ru: "Если после получения разрешения на временное пребывание иностранец покидает Королевство, разрешение на временное пребывание считается прекращённым.",
+  src: [{ t: "Immigration Act, PDF (EN)", u: IMM_ACT }],
+  notes: ["⚠️ Сборы 1 000 / 3 800 бат — verified-secondary: конкорданс профильных источников, первоисточник (กฎกระทรวง о пошлинах) не прочитан, номер не подтверждён.",
+          IMM_NOTE]
+};
+
+NORMS["V-05"] = {
+  title: "Overstay — уголовная рамка",
+  act: "Immigration Act B.E. 2522",
+  section: "s.81",
+  organ: "Immigration Bureau / полиция / суд",
+  level: "primary", checked: "2026-08-27",
+  gist: "Пребывание без разрешения либо с истёкшим или отозванным разрешением наказывается лишением свободы до 2 лет, или штрафом до 20 000 бат, или обоими.",
+  orig: { lang: "en", label: "Английский перевод, s.81", text: "Any alien staying in the Kingdom without permission, or with expired or revoked permission, shall be punished by imprisonment not exceeding two years or a fine not exceeding twenty thousand baht or both." },
+  ru: "Иностранец, находящийся в Королевстве без разрешения либо с истёкшим или отозванным разрешением, наказывается лишением свободы на срок до двух лет, либо штрафом до двадцати тысяч бат, либо и тем и другим.",
+  src: [{ t: "Immigration Act, PDF (EN)", u: IMM_ACT }],
+  notes: [IMM_NOTE]
+};
+
+NORMS["V-06"] = {
+  title: "Overstay — административные штрафы и баны на въезд",
+  act: "Ministry of Interior Order No. 1/2558 (B.E. 2558), правоприменение с 20.03.2016",
+  section: "административные санкции",
+  organ: "Ministry of Interior / Immigration Bureau",
+  level: "primary", checked: "2026-08-27",
+  gist: "Штраф 500 бат в день, но не более 20 000 бат (кэп достигается на 40-й день). Баны на повторный въезд отсчитываются от даты выезда. При ДОБРОВОЛЬНОЙ явке на выезде: overstay свыше 90 дней — бан 1 год; свыше 1 года — 3 года; свыше 3 лет — 5 лет; свыше 5 лет — 10 лет; до 90 дней — только штраф, бана нет. При ЗАДЕРЖАНИИ: overstay менее 1 года — бан 5 лет; 1 год и больше — 10 лет. То есть арест даже с однодневным overstay даёт 5 лет бана.",
+  orig: { lang: "en", label: "Официальная страница офиса иммиграции", text: "500 baht/day, but not exceeding 20,000 baht … starting from the departure date." },
+  ru: "500 бат в день, но не более 20 000 бат… отсчёт бана — с даты выезда.",
+  src: [{ t: "Samut Prakan Immigration — Warning of Overstay in Thailand (официальная страница органа)", u: "https://www.samutprakanimmigration.go.th/warning-of-overstay-in-thailand/" }],
+  notes: ["⚠️ Сам текст приказа МВД не читан — Royal Gazette недоступна (Cloudflare). Verified по официальной странице органа-исполнителя."]
+};
+
+NORMS["V-07"] = {
+  title: "Безвиз 30 дней по двустороннему договору РФ–Таиланд (несгораемый минимум)",
+  act: "Межправительственное соглашение об освобождении от виз для владельцев обычных паспортов, в силе с 24.03.2007",
+  section: "двусторонний договор",
+  organ: "MFA Таиланда / МИД РФ",
+  level: "primary", checked: "2026-08-27",
+  gist: "Граждане РФ с обычным паспортом въезжают без визы на срок до 30 дней. Ключевое: это ДОГОВОР — он не зависит от односторонних схем МВД и переживёт реформу-2026. Официальная формула о вариантах после реформы: въезд возможен в том числе «under bilateral visa exemption agreements».",
+  orig: { lang: "en", label: "Официальная формула посольства о вариантах после реформы", text: "Thereafter, they may enter Thailand under (1) the new visa schemes; (2) bilateral visa exemption agreements; or (3) an appropriate visa." },
+  ru: "После этого въезд в Таиланд возможен: (1) по новым визовым схемам; (2) по двусторонним соглашениям о безвизовом въезде; либо (3) по соответствующей визе.",
+  src: [{ t: "Department of Consular Affairs — официальный список двусторонних соглашений (PDF, 24.02.2025)", u: "https://image.mfa.go.th/mfa/0/zE6021nSnu/0303/Bilat_Ordinary.pdf" },
+        { t: "Посольство Таиланда в Москве — Announcement No. 1/2562", u: "https://moscow.thaiembassy.org/en/content/101305-announcement-no-1-2562-visa-exemption-for-holders-of-russian-passports" }]
+};
+
+NORMS["V-08"] = {
+  title: "Односторонний безвиз 60 дней и реформа-2026 «one country, one privilege» — главный watch-item",
+  act: "Уведомление МВД по схеме 60-дневного visa exemption (с 15.07.2024, 93 страны, РФ включена); реформа — одобрения кабмина 19.05.2026 и 16.07.2026 (5 уведомлений МВД), ждут публикации в Royal Gazette",
+  section: "статус: одобрено, но не опубликовано — вступает через 15 дней после публикации",
+  organ: "Ministry of Interior / Immigration Bureau; анонсы — MFA, TAT",
+  level: "primary", checked: "2026-08-27",
+  gist: "На 27.08.2026 для граждан РФ ДЕЙСТВУЕТ безвиз 60 дней — публикации в Royal Gazette не было. После вступления реформы: безвиз 30 дней примерно для 54–59 стран (цифры двух пакетов расходятся: май — 54, июль — 59), VoA сокращается с 31 до 4 стран (Азербайджан, Беларусь, Сербия, Индия). Практический вывод для россиянина: планировать под 30 дней, 60 — доживающая опция.",
+  orig: { lang: "en", label: "TAT Newsroom — официальный орган", text: "Thai Cabinet approves updated visa measures pending Royal Gazette publication." },
+  ru: "Кабинет министров Таиланда одобрил обновлённые визовые меры; они ожидают публикации в Royal Gazette.",
+  src: [{ t: "TAT Newsroom (официальный орган)", u: "https://www.tatnews.org/2026/07/thai-cabinet-approves-updated-visa-measures-pending-royal-gazette-publication/" },
+        { t: "Посольство Таиланда (Бруней) — о ревизии безвиза и VoA", u: "https://bsb.thaiembassy.org/en/publicservice/the-revision-of-thailand-s-visa-exemption-and-voa" }],
+  notes: ["⚠️ Присутствие РФ в новом 30-дневном одностороннем списке — unverified: списки не опубликованы. Несгораемый минимум для россиянина — 30 дней по двустороннему договору (V-07).",
+          "Это норма в состоянии «решена, но ещё не право»: обычного статуса active/repealed для неё недостаточно, нужен статус «одобрено, ждёт публикации» и триггер вступления «дата публикации + 15 дней»."]
+};
+
+NORMS["V-09"] = {
+  title: "Продление безвиза/TR внутри страны и ужесточение visa run (с 12.11.2025)",
+  act: "s.35 акта (V-01) + критерии Immigration Bureau (Police Order — операционный текст недоступен, 403)",
+  section: "форма TM7; сбор 1 900 бат",
+  organ: "Immigration Bureau (любой офис)",
+  level: "secondary", checked: "2026-08-27",
+  gist: "Безвизовый штамп и туристическая виза продлеваются в офисе иммиграции на +30 дней за 1 900 бат. С 12.11.2025 (анонс комиссара Immigration Bureau): (а) офицеры вправе отказать во въезде при более чем двух безвизовых въездах подряд без внятного обоснования; (б) продление безвиза — максимум 2 раза за календарный год: первое +30 дней, второе только +7 дней; (в) въехавшим по безвизу через сухопутную границу продление не даётся.",
+  orig: { lang: "en", label: "KPMG GMS Flash Alert 2025-255", text: "Stricter Visa Run Rules — Thailand, effective 12 November 2025." },
+  ru: "Ужесточение правил visa run в Таиланде, действует с 12 ноября 2025 года.",
+  src: [{ t: "KPMG GMS Flash Alert 2025-255", u: "https://kpmg.com/xx/en/our-insights/gms-flash-alert/flash-alert-2025-255.html" }],
+  notes: ["⚠️ Verified-secondary: конкорданс профильных источников, операционные тексты приказов не опубликованы.",
+          "Класс «enforcement practice»: юридическая сила ниже нормы, практическое действие — как у нормы. Жёсткий лимит «2 сухопутных въезда в год» формально снят, но заменён дискрецией офицера.",
+          "АНТИ-ПАТТЕРН: «жить на бордер-ранах» больше не стратегия."]
+};
+
+NORMS["V-10"] = {
+  title: "Туристическая виза TR и METV для граждан РФ",
+  act: "Консульские правила MFA; операционные требования — посольство Таиланда в Москве",
+  section: "TR (однократная) / METV (многократная)",
+  organ: "Royal Thai Embassy, Moscow / портал thaievisa.go.th",
+  level: "primary", checked: "2026-08-27",
+  gist: "TR: сбор 40 USD, виза действует 3 месяца, пребывание до 60 дней; финансовое требование — выписка с конечным балансом не менее 20 000 бат на человека, плюс оплаченные авиабилеты и жильё. METV: сбор 200 USD, действует 6 месяцев, каждый въезд до 60 дней; финансовое требование — выписка за последние 6 месяцев с минимальным балансом 7 000 USD на каждый месяц, плюс справка с работы.",
+  orig: { lang: "ru", label: "Официальная страница посольства (русская версия), дословно", text: "Оригинал выписки из местного банка с указанием конечного баланса не менее 20 000 бат на человека… выписка из банковского счёта за последние 6 месяцев с минимальным балансом 7000 USD на каждый месяц." },
+  ru: "Цитата приведена дословно с официальной русскоязычной страницы посольства Таиланда в Москве.",
+  src: [{ t: "Посольство Таиланда в Москве — туристическая виза (RU)", u: "https://moscow.thaiembassy.org/ru/publicservice/туристическая-виза" }]
+};
+
+NORMS["V-11"] = {
+  title: "TDAC — цифровая карта прибытия (обязательна всем)",
+  act: "Режим Immigration Bureau, действует с 01.05.2025; портал tdac.immigration.go.th",
+  section: "заменила бумажную TM6",
+  organ: "Immigration Bureau; официальный гайд — TAT",
+  level: "primary", checked: "2026-08-27",
+  gist: "Все иностранцы при въезде любым путём (воздух, земля, море) обязаны заполнить Thailand Digital Arrival Card онлайн — в пределах 72 часов до въезда. Карта БЕСПЛАТНА: платные «помогайки» — скам.",
+  orig: { lang: "en", label: "TAT (официальный орган) — гайд по TDAC", text: "Thailand Digital Arrival Card (TDAC) — required for all foreign nationals entering Thailand, to be submitted online within 72 hours before arrival." },
+  ru: "Цифровая карта прибытия обязательна для всех иностранцев, въезжающих в Таиланд; подаётся онлайн в течение 72 часов до прибытия.",
+  src: [{ t: "TAT — официальный гайд по TDAC", u: "https://www.tourismthailand.org/Articles/tdac" }],
+  notes: ["⚠️ Сам портал за Cloudflare — в прогоне не открывался; норма подтверждена официальным гайдом TAT."]
+};
+
+NORMS["V-12"] = {
+  title: "DTV (Destination Thailand Visa) — 5 лет, до 180 дней за въезд",
+  act: "Визовая категория MFA (введена в июле 2024); операционные требования — чеклист MFA и посты подачи",
+  section: "категории Workcation / Thai Soft Power / Dependents",
+  organ: "MFA и посольства (для РФ — Москва); продление — Immigration Bureau",
+  level: "primary", checked: "2026-08-27",
+  gist: "Виза на 5 лет, многократная, пребывание до 180 дней за въезд, разовое продление ещё на 180 дней через Immigration Bureau (сбор 1 900 бат). Новый въезд — новые 180 дней. Категории: (A) Workcation — удалённый работник/фрилансер/талант с ИНОСТРАННЫМ работодателем или клиентами; (B) Thai Soft Power — муай-тай, тайская кулинария, спорт, медицинское лечение, семинары, фестивали (нужно письмо-зачисление от тайской организации или госпиталя); (C) Dependents — супруг(а) и дети до 20 лет держателя DTV. Финансовое требование — не менее 500 000 бат: выписка за последние 3 месяца с конечным балансом. Сбор зависит от поста подачи: 350 USD (Москва) / 340 USD (Хошимин) / базовый анонс MFA 10 000 бат. Из Таиланда DTV не выдаётся.",
+  orig: { lang: "en", label: "Чеклист MFA, дословно", text: "bank statement for the last 3 months with an ending balance of no less than 500,000 THB … salary slip/monthly income for the last 6 months." },
+  ru: "Банковская выписка за последние 3 месяца с конечным балансом не менее 500 000 бат… зарплатные ведомости/ежемесячный доход за последние 6 месяцев.",
+  src: [{ t: "Официальный чеклист DTV, MFA (PDF)", u: "https://image.mfa.go.th/mfa/0/n3gTFT2TOE/Visa_Requirements/Checklist_DTV.pdf" },
+        { t: "Посольство Таиланда в Москве — DTV (RU)", u: "https://moscow.thaiembassy.org/ru/publicservice/dtvrussian" },
+        { t: "Генконсульство в Хошимине — DTV (сбор 340 USD)", u: "https://hochiminh.thaiembassy.org/en/page/destination-thailand-visa-dtv-thị-thực-điểm-đến-th" }],
+  notes: ["⚠️ Возраст 20+ — verified-secondary: в чеклисте MFA и на московской странице возраст не указан, цифра фигурирует в консульских анкетах других постов.",
+          "⚠️ Запрет работы на тайских работодателей по DTV — verified-secondary (виза не даёт права на местную занятость).",
+          "Составы пакетов и трактовка «сезонирования» денег РАЗЛИЧАЮТСЯ по постам подачи — параметру нужна привязка к посту, а не только к стране."]
+};
+
+NORMS["V-13"] = {
+  title: "LTR (Long-Term Resident) — 10 лет для состоятельных и квалифицированных",
+  act: "Программа по резолюциям кабмина, оператор — BOI; смягчение условий — январь 2025",
+  section: "4 категории + иждивенцы",
+  organ: "Board of Investment (BOI) + Immigration Bureau; центр TIESC, One Bangkok",
+  level: "primary", checked: "2026-08-27",
+  gist: "Категории: Wealthy Global Citizens — активы 1 млн USD + инвестиции в Таиланд 500 тыс. USD (госбонды 5+ лет / бизнес / недвижимость); Wealthy Pensioners (50+) — пассивный доход 80 тыс. USD в год ИЛИ 40–80 тыс. + 250 тыс. USD инвестиций; Work-from-Thailand Professionals — доход 80 тыс. USD в год (в среднем за 2 года) ИЛИ 40–80 тыс. + магистратура, работодатель — листинговая компания либо 3+ года работы и выручка от 50 млн USD; Highly-Skilled Professionals — 80 тыс. USD в год (или 40–80 тыс. + степень) в целевых отраслях. Всем: страховка 50 тыс. USD ИЛИ депозит 100 тыс. USD (12 мес.) ИЛИ тайский соцстрах; иждивенцам — страховка 50 тыс. USD / депозит 25 тыс. USD. Формат: виза 10 лет (5+5), сбор 50 000 бат на человека; 90-day report заменён ГОДОВЫМ отчётом; re-entry permit не нужен; digital work permit; освобождение заграничного дохода, 17% ПИТ для Highly-Skilled.",
+  orig: { lang: "en", label: "Официальный сайт программы BOI", text: "Long-Term Resident (LTR) Visa — 10-year renewable visa (5+5) issued by the Thailand Board of Investment." },
+  ru: "Виза долгосрочного резидента — 10-летняя продлеваемая виза (5+5), оператор — Совет по инвестициям Таиланда.",
+  src: [{ t: "ltr.boi.go.th — официальный сайт программы (орган-оператор)", u: "https://ltr.boi.go.th/" }],
+  notes: ["⚠️ Не разрешённый конфликт: лимит «максимум 4 иждивенца» на сайте BOI остался, вторичка пишет о его снятии смягчением 2025 года.",
+          "Порог выручки работодателя для WFT снижен смягчением 2025 года со 150 млн до 50 млн USD."]
+};
+
+NORMS["V-14"] = {
+  title: "Non-Immigrant O — брак с гражданином Таиланда, член семьи, волонтёр",
+  act: "Визовая категория MFA; годовое продление — s.35 акта + критерии Immigration (Police Order, текст недоступен)",
+  section: "виза — посольство; extension — иммиграция",
+  organ: "Посольство Таиланда в Москве (виза); Immigration Bureau (продления)",
+  level: "primary", checked: "2026-08-27",
+  gist: "Подкатегории: супруги тайских граждан; члены семей иностранцев, работающих или учащихся в Таиланде; волонтёры NGO. Финансовое требование для супругов — не менее 400 000 бат или эквивалент; для членов семей и волонтёров — конечный баланс не менее 20 000 бат на человека. Первичное пребывание — не более 90 дней. Сбор: 80 USD (однократная) / 200 USD (многократная, год). Годовое продление по браку внутри страны: 400 000 бат на тайском счёте (сезонирование 2 месяца до подачи) ИЛИ доход 40 000 бат в месяц; проверки реальности брака. Право работы НЕ даётся автоматически — нужен work permit.",
+  orig: { lang: "ru", label: "Официальная страница посольства (RU), дословно", text: "не менее 400 000 тайских бат или эквивалентной суммы … изначально… не более 90 дней" },
+  ru: "Цитата приведена дословно с официальной русскоязычной страницы посольства Таиланда в Москве.",
+  src: [{ t: "Посольство Таиланда в Москве — неиммиграционная виза «О» (RU)", u: "https://moscow.thaiembassy.org/ru/publicservice/неиммиграционная-виза-другие-о" }],
+  notes: ["⚠️ Критерии годового продления (400k / 40k в месяц, сезонирование) — verified-secondary: они живут в Police Order 327/2557, первоисточник за Cloudflare 403."]
+};
+
+NORMS["V-15"] = {
+  title: "Non-Immigrant O-A (пенсионная, 50+, подача из Москвы) — порог 1,2 млн бат",
+  act: "Визовая категория MFA; операционные требования поста — посольство Таиланда в Москве",
+  section: "требования на выдачу визы",
+  organ: "Royal Thai Embassy, Moscow",
+  level: "primary", checked: "2026-08-27",
+  gist: "Возраст 50+ на момент подачи. Финансы НА ВЫДАЧУ: депозит не менее 1 200 000 бат за последние три месяца, ИЛИ месячный доход 100 000 бат, ИЛИ комбинация. На ПРОДЛЕНИЕ — суммарно 800 000 бат. Страховка обязательна: не менее 100 000 USD или 3 000 000 бат, включая COVID-19. Справка о несудимости (не старше 3 месяцев), медсправка (не старше 3 месяцев). Сбор 200 USD, обработка 5 рабочих дней. Пребывание — 1 год с даты въезда, в течение года действия визы въезды многократные.",
+  orig: { lang: "ru", label: "Официальная страница посольства (RU), дословно", text: "Депозит не менее 1 200 000 батов за последние три месяца, ИЛИ месячный доход 100 000 батов, ИЛИ комбинация … застрахован от общих заболеваний, включая КОВИД-19, на страховую сумму не менее 100 000 долларов или 3 000 000 Тайских Бат" },
+  ru: "Цитата приведена дословно с официальной русскоязычной страницы посольства Таиланда в Москве.",
+  src: [{ t: "Посольство Таиланда в Москве — виза O-A (RU)", u: "https://moscow.thaiembassy.org/ru/publicservice/неиммиграционная-виза-другие-о-а" }],
+  conflict: {
+    who: "Вся профильная вторичка (Siam Legal, thaiembassy.com, русскоязычные гайды)",
+    claims: "транслирует порог O-A «800 000 бат / 65 000 в месяц»",
+    u: "https://moscow.thaiembassy.org/ru/publicservice/неиммиграционная-виза-другие-о-а",
+    verdict: "Официальная страница органа подачи для россиян требует 1,2 млн бат / 100 тыс. в месяц. Порог 800 000 у Москвы остаётся только для последующих продлений ВНУТРИ страны. Для RU-сценария оперативная истина — страница поста подачи."
+  },
+  notes: ["⚠️ Задание архивисту: подтвердить, правило 1,2 млн — это требование MFA для всех постов или локальная практика Москвы."]
+};
+
+NORMS["V-16"] = {
+  title: "Годовое пенсионное продление внутри страны (Non-O, 50+, «800k»)",
+  act: "s.35 акта + критерии Immigration Bureau (обычно цитируется Police Order 327/2557 с поправками) — операционный текст НЕДОСТУПЕН (immigration.go.th отдаёт 403)",
+  section: "форма TM7; сбор 1 900 бат",
+  organ: "Immigration Bureau (офис по месту жительства)",
+  level: "secondary", checked: "2026-08-27",
+  gist: "Иностранец 50+ конвертирует безвиз или TR в Non-O внутри страны (без выезда), затем ежегодно продлевает: 800 000 бат на ТАЙСКОМ счёте (сезонирование: 2 месяца до подачи, 3 месяца после, далее остаток не ниже 400 000) ИЛИ доход 65 000 бат в месяц (12 месяцев регулярных зачислений на тайский счёт) ИЛИ комбинация. Страховка для этого пути НЕ обязательна — важная развилка против O-A. Продление ежегодное, 1 900 бат.",
+  orig: { lang: "ru", label: "Источник — конкорданс профильных вторичек, дословной цитаты первоисточника НЕТ", text: "Операционный текст критериев (Police Order 327/2557 с поправками) в открытом доступе отсутствует: сайт иммиграции закрыт Cloudflare-челленджем." },
+  ru: "Самый массовый пенсионный путь целиком стоит на вторичных источниках. Это отдельный класс проблемы: правило применяется ежедневно, но орган не публикует его текст.",
+  src: [{ t: "Конкорданс профильных источников (thailawonline, siam-legal, belaws, ask.in.th) — первоисточник недоступен", u: "" }],
+  notes: ["⚠️ Verified-secondary ЦЕЛИКОМ: ни одна цифра не прочитана в операционном тексте. Приоритетное задание архивисту.",
+          "Честный потолок верификации: пока скан приказа не добыт, статус останется вторичным — и прототип обязан это показывать, а не выдавать за норму."]
+};
+
+NORMS["V-17"] = {
+  title: "Non-Immigrant O-X (5+5 лет) — гражданам РФ НЕДОСТУПНА",
+  act: "Визовая категория по резолюции кабмина 2016 года; открыта для граждан 14 стран",
+  section: "Япония, Австралия, Дания, Финляндия, Франция, Германия, Италия, Нидерланды, Норвегия, Швеция, Швейцария, Великобритания, Канада, США",
+  organ: "MFA / посольства",
+  level: "secondary", checked: "2026-08-27",
+  gist: "Возраст 50+, депозит 3 млн бат (или 1,8 млн + годовой доход 1,2 млн). Граждане РФ в список 14 стран НЕ входят.",
+  orig: { lang: "ru", label: "Первоисточник не читан", text: "Список 14 гражданств зафиксирован по конкордансу вторичек; официальная страница/резолюция в прогоне не найдена." },
+  ru: "Для российского сценария значима только недоступность визы.",
+  src: [],
+  debunk: "АНТИ-ПРОДУКТ: русскоязычные блоги регулярно «продают» россиянам пятилетнюю пенсионную визу O-X. Для гражданина РФ этого продукта не существует. Реальные пенсионные дороги — O-A из Москвы (V-15) и in-country Non-O + extension (V-16).",
+  notes: ["⚠️ Verified-secondary; первоисточник списка гражданств — задание архивисту."]
+};
+
+NORMS["V-18"] = {
+  title: "Non-Immigrant B + разрешение на работу",
+  act: "Виза — категория MFA; работа — Emergency Decree on Managing the Work of Aliens B.E. 2560 (2017) ⚠️ текст не читан; запрет работы без разрешения — также s.37(1) акта (V-01)",
+  section: "WP3 подаётся работодателем ДО визы",
+  organ: "Посольство (виза) + Department of Employment, Ministry of Labour (work permit) + Immigration (годовые продления)",
+  level: "primary", checked: "2026-08-27",
+  gist: "Порядок жёсткий: работодатель подаёт форму WP3 в Foreign Workers Division ДО подачи на визу; нужны документы компании (регистрация, акционеры, налоговые формы), дипломы заявителя. Сбор: 80 USD (однократная, 3 месяца) / 200 USD (многократная). По прилёте — получение work permit, затем годовой extension у иммиграции. Работа без разрешения запрещена любому временно пребывающему (s.37(1)).",
+  orig: { lang: "ru", label: "Официальная страница посольства (RU)", text: "Одобрение Министерства труда (форма WP3 подаётся работодателем в Foreign Workers Division до подачи документов на визу)." },
+  ru: "Требования приведены с официальной русскоязычной страницы посольства Таиланда в Москве.",
+  src: [{ t: "Посольство Таиланда в Москве — бизнес-виза B (RU)", u: "https://moscow.thaiembassy.org/ru/publicservice/неиммиграционная-виза-бизнес-b" }],
+  notes: ["⚠️ Verified-secondary: пропорции «капитал компании 2 млн бат и 4 тайских сотрудника на 1 иностранца» (кроме BOI-компаний) — конкорданс вторичек."]
+};
+
+NORMS["V-19"] = {
+  title: "Non-Immigrant ED / ED PLUS — учёба",
+  act: "Визовая категория MFA; ED PLUS — для университетов (бакалавриат и выше)",
+  section: "виза 3 месяца или 1 год; первичное пребывание не более 90 дней",
+  organ: "Посольство (Москва) + учебное заведение + Immigration (продления)",
+  level: "primary", checked: "2026-08-27",
+  gist: "Нужны письмо-зачисление от учебного заведения на бланке и подтверждение платёжеспособности или спонсорское письмо. Сбор 80 USD. Дальше — продления по учёбе. ED PLUS (университеты): освобождение от re-entry permit, продления подаёт вуз, плюс 1 год пребывания после выпуска на поиск работы. Права работать виза не даёт.",
+  orig: { lang: "ru", label: "Официальная страница посольства (RU)", text: "Письмо о зачислении от учебного заведения на официальном бланке; подтверждение платёжеспособности или спонсорское письмо." },
+  ru: "Требования приведены с официальной русскоязычной страницы посольства Таиланда в Москве.",
+  src: [{ t: "Посольство Таиланда в Москве — виза ED и ED PLUS (RU)", u: "https://moscow.thaiembassy.org/ru/publicservice/неиммиграционная-виза-обучение-ed-и-ed-plus" }],
+  notes: ["⚠️ Практика (не норма): «языковые школы под визу» — зона зачисток иммиграции, посещаемость проверяют, при продлении устраивают языковые мини-экзамены."]
+};
+
+NORMS["V-20"] = {
+  title: "Thailand Privilege (экс-Elite) — пребывание за членский взнос",
+  act: "Программа Thailand Privilege Card Co., Ltd. (под эгидой TAT); виза категории Privilege Entry на базе резолюций кабмина",
+  section: "тарифы членства",
+  organ: "Thailand Privilege Card Co. + Immigration",
+  level: "primary", checked: "2026-08-27",
+  gist: "Тарифы: Bronze 650 000 бат / 5 лет (тариф действует до 30.09.2026); Gold 900 000 бат / 5 лет; Platinum 1 500 000 бат / 10 лет; Diamond 2 500 000 бат / 15 лет; Reserve 5 000 000 бат / 20 лет (по приглашению). Виза многократная, пребывание до 1 года за въезд. Требований к возрасту и доходу нет. Права работы НЕТ.",
+  orig: { lang: "en", label: "Официальный сайт оператора, дословно", text: "THB 650,000 / THB 900,000 / THB 1,500,000 / THB 2,500,000 / THB 5,000,000" },
+  ru: "Тарифы приведены дословно с официального сайта оператора программы.",
+  src: [{ t: "thailandprivilege.co.th — официальный сайт оператора", u: "https://www.thailandprivilege.co.th/" }],
+  notes: ["⚠️ Детали визового режима (продления без выезда и т.п.) на главной не расписаны — verified-secondary.",
+          "Это membership, а не вещное право: оператор уже менял условия (Elite → Privilege, 2023) и может менять дальше."]
+};
+
+NORMS["V-21"] = {
+  title: "Постоянное резидентство (PR) — квота 100 человек на страну в год",
+  act: "Immigration Act B.E. 2522",
+  section: "s.40–41",
+  organ: "Immigration Bureau / Ministry of Interior",
+  level: "primary", checked: "2026-08-27",
+  gist: "Иммиграционная квота на получение резидентства — не более ста человек в год от каждой страны. Требования (3 года непрерывных годовых extension, доход, знание тайского) — не проверялись, отдельный сценарий.",
+  orig: { lang: "en", label: "Английский перевод, s.40", text: "the immigration quotas for alien taking up residency… not be more than one hundred persons per year from each country" },
+  ru: "Иммиграционные квоты для иностранцев, получающих резидентство… не более ста человек в год от каждой страны.",
+  src: [{ t: "Immigration Act, PDF (EN)", u: IMM_ACT }],
+  notes: ["⚠️ Остальные требования к PR — unverified, ветка припаркована.", IMM_NOTE]
+};
+
+NORMS["V-22"] = {
+  title: "Минимальные средства при въезде (10 000 / 20 000 бат)",
+  act: "Ministerial Regulation к s.12(2) Immigration Act",
+  section: "⚠️ первоисточник не читан",
+  organ: "Immigration Bureau (пограничный контроль)",
+  level: "unverified", checked: "2026-08-27",
+  gist: "Наличие средств 10 000 бат на человека / 20 000 на семью при въезде по безвизу или TR. Проверяется редко, но это легальное основание для отказа во въезде.",
+  ru: "Кандидат на добор: текст министерского правила в прогоне не читан.",
+  src: [], notes: ["⚠️ Статус: unverified."]
+};
+
+NORMS["V-23"] = {
+  title: "Прочие визовые категории — припаркованы",
+  act: "Категории MFA: Non-IB (инвестиции, BOI), Non-R (религия), SMART visa (поглощается LTR), Non-M (медиа), волонтёрская O/R, транзитная TS",
+  section: "не детализировано",
+  organ: "MFA / Immigration Bureau / BOI",
+  level: "unverified", checked: "2026-08-27",
+  gist: "Редкие ветки, в российском сценарии не детализируются. Сюда же — гражданство и натурализация как отдельный сценарий.",
+  ru: "Зафиксировано одной строкой, чтобы рантайм честно говорил «эта ветка в базе не раскрыта».",
+  src: [], notes: ["⚠️ Статус: unverified/parked."]
+};
+/* ============================================================
+   СЛОЙ B — СЦЕНАРИИ
+   Источники: пилот-кондо/02-СЦЕНАРИЙ.md (26.08.2026),
+              сценарий-визы/02-СЦЕНАРИЙ.md (27.08.2026)
+   ============================================================ */
+var SCENARIOS = {};
+
+SCENARIOS.condo = {
+  id: "condo",
+  title: "Иностранец покупает кондоминиум (freehold) в Таиланде",
+  sub: "Процессная карта: покупка юнита в собственность физлицом-иностранцем. 7 шагов, 18 норм.",
+  checked: "26.08.2026",
+  verified: "ресёрчер-кодификатор + фактчек-гейт архивиста (первоисточники). Юрист и критик по этому сценарию ещё не проходили.",
+  scopeNote: "Скоуп: покупка юнита в собственность физлицом-иностранцем. Ветки «компания», «leasehold», «покупка тайским супругом» отмечены как рискованные и НЕ детализированы.",
+  entry: [
+    { q: "Статус покупателя", v: "(a) нерезидент — главная ветка карты, путь «ввоз валюты» по 19(5) · (b) иностранец с PR · (c) BOI-промоушен · (d) юрлицо. Определяет категорию по s.19 и комплект доказательств [[N-01]] [[N-03]]" },
+    { q: "Откуда деньги", v: "(i) перевод из-за рубежа в иностранной валюте · (ii) свой валютный счёт (FCD) в Таиланде · (iii) Non-Resident Baht Account. Все три проходят по s.19 ter(5) [[N-03]] [[N-08]]. Деньги, пришедшие в батах из-за рубежа или заработанные в Таиланде без статуса (b), — НЕ проходят" },
+    { q: "Женаты на гражданине Таиланда?", v: "Покупка на себя-иностранца — эта карта. Покупка тайским супругом — риск-ветка: имущество в браке может считаться общим, нужен режим личных средств. Вне скоупа" },
+    { q: "Форма владения", v: "Физлицо-freehold — эта карта · компания [[N-17]] · leasehold [[N-16]] — отдельные рискованные ветки, без деталей" },
+    { q: "Цена юнита не выше 7 млн бат?", v: "Для иностранца НЕ влияет: льгота 0,01% только тайцам-физлицам [[N-10]]. Условие оставлено, потому что продавец и агент будут ей размахивать" }
+  ],
+  steps: [
+    {
+      n: 1, t: "Пре-чек объекта: квота и юрлицо кондоминиума",
+      action: "До внесения депозита запросить у юрлица кондоминиума (นิติบุคคลอาคารชุด) письмо о текущей доле иностранной собственности; убедиться, что покупка не выведет дом за 49% площади.",
+      docs: "Письмо о квоте (foreign ownership quota letter) — его же потребует Land Office в день сделки.",
+      org: "Юрлицо кондоминиума (менеджмент дома).",
+      deadline: "До депозита; письмо для сделки — свежее на дату регистрации.",
+      pay: "Нет (возможен административный сбор дома — договорное).",
+      risks: [
+        "Квота считается ПО ПЛОЩАДИ и на дату регистрации — резервирование юнита квоту не бронирует.",
+        "В популярных домах foreign quota уже выбрана; юниты «Thai quota» иностранцу-фрихолдеру недоступны.",
+        "Проверять, «foreign quota unit» ли конкретный юнит в объявлении."
+      ],
+      norms: ["N-02", "N-05", "N-18"]
+    },
+    {
+      n: 2, t: "Due diligence юнита и продавца",
+      action: "Проверка титула и обременений: копия свидетельства о праве на юнит (หนังสือกรรมสิทธิ์ห้องชุด), выписка в Land Office (залоги, ипотека, аресты, сервитуты), долги по общим расходам, статус продавца (физлицо или компания — меняет налоги на шаге 6); для новостройки — лицензии застройщика и EIA.",
+      docs: "Title deed юнита; справка о задолженности по common fees; договор бронирования.",
+      org: "Land Office по месту регистрации кондоминиума (title search); юрлицо кондоминиума.",
+      deadline: "До подписания основного договора.",
+      pay: "Мелкие сборы за выписки (в корпусе не зафиксированы ⚠️).",
+      risks: [
+        "Долг по общим расходам блокирует регистрацию [[N-05]].",
+        "Зарегистрированная ипотека продавца должна гаситься или сниматься в день сделки.",
+        "У компании-продавца иные налоги: [[N-13]] — 1%, [[N-11]] — SBT почти всегда."
+      ],
+      norms: ["N-05", "N-11", "N-13", "N-14"]
+    },
+    {
+      n: 3, t: "Договор купли-продажи и депозит",
+      action: "Подписать договор (обычно двуязычный EN/TH), внести депозит. В договоре зафиксировать: кто платит какие сборы и налоги (иначе действует «обычай», см. шаг 6), срок трансфера, условие возврата депозита при невыполнении (квота, валютное доказательство, долги).",
+      docs: "Sale & purchase agreement; итоговый переход права оформляется стандартной формой Land Office в день сделки.",
+      org: "Стороны; финальная регистрация — Land Office.",
+      deadline: "Договорной.",
+      pay: "На этом шаге нет.",
+      risks: [
+        "Сделка без последующей регистрации в Land Office права НЕ переносит (форма сделки — [[N-14]], статус нормы непроверенный).",
+        "Аллокация налогов чисто договорная: «кто платит» надо писать в договор, а не полагаться на обычай."
+      ],
+      norms: ["N-14", "N-09", "N-10", "N-11", "N-12", "N-13"]
+    },
+    {
+      n: 4, t: "Перевод денег: иностранная валюта и доказательство ввоза 🔑",
+      action: "Перевести из-за рубежа В ИНОСТРАННОЙ ВАЛЮТЕ (конвертация в баты — уже в тайском банке) сумму не менее полной цены юнита. Отправитель или получатель — сам покупатель. В назначении платежа: «to purchase condominium unit №…, project…, buyer <имя как в паспорте>».",
+      docs: "Подтверждение операции от банка (исторически «FET-форма») — выдаётся на ЛЮБУЮ сумму [[N-07]]. Несколько траншей допустимы: каждый со своим доказательством, сумма покрывает цену юнита.",
+      org: "Уполномоченный тайский банк-получатель; отчётность банка — в Bank of Thailand.",
+      deadline: "До дня сделки (банку нужно 1–5 дней на выдачу форм — практика ⚠️).",
+      pay: "Банковские комиссии (не норма).",
+      debunk: "АНТИ-ФАКТ, который надо снять с этого шага: «FET-форма нужна только от USD 50 000, ниже — можно проще». Действующего порога нет: банк обязан выдать подтверждение на любую сумму, а Земельный офис требует доказательство НЕ МЕНЕЕ ЦЕНЫ ЮНИТА [[N-03]] [[N-07]].",
+      risks: [
+        "Перевод пришёл в батах → банк не оформит доказательство «ввоза иностранной валюты» → Land Office откажет по s.19 ter. SWIFT слать в USD/EUR, не в батах.",
+        "Имя в переводе не совпадает с паспортом и договором → доказательство не примут.",
+        "Сумма доказательств меньше цены в договоре → отказ или требование донести.",
+        "Назначение платежа без слова «condominium» → банк может отказаться указывать нужную цель задним числом.",
+        "При операции от USD 200 000 банк запросит подтверждающие документы (договор) — иметь под рукой [[N-08]].",
+        "Альтернативные легальные каналы: свой валютный счёт (FCD) или счёт нерезидента в батах — тоже проходят по s.19 ter(5) [[N-08]]."
+      ],
+      extra: "Зачем хранить вечно: пакет доказательств — основание для беспрепятственной репатриации денег при будущей продаже (практика, [[N-08]] ⚠️).",
+      norms: ["N-03", "N-07", "N-08", "N-06"]
+    },
+    {
+      n: 5, t: "Комплект документов к сделке",
+      action: "Собрать пакет покупателя и получить от продавца и юрлица кондоминиума два письма.",
+      docs: "Покупатель-нерезидент: паспорт (плюс нотариальный перевод имени, если требует офис — практика ⚠️); подтверждения банка из шага 4; доверенность (หนังสือมอบอำนาจ, форма Land Office), если действует представитель. От продавца и дома: title deed юнита; справка об отсутствии долгов (выдаётся в 15 дней, [[N-05]]); письмо о квоте 49% [[N-02]]; домовая книга юнита (ทะเบียนบ้าน).",
+      org: "Юрлицо кондоминиума; банк.",
+      deadline: "К дню регистрации; справки — свежие.",
+      pay: "Нет.",
+      risks: [
+        "Просроченные или несвежие письма — типовая причина срыва дня сделки.",
+        "Женатому покупателю офис может задать вопрос о согласии супруга (практика ⚠️)."
+      ],
+      norms: ["N-03", "N-05", "N-02"]
+    },
+    {
+      n: 6, t: "День сделки в Land Office: регистрация и касса",
+      action: "Обе стороны (или поверенные) — в Land Office ПО МЕСТУ РЕГИСТРАЦИИ КОНДОМИНИУМА. Заявление о трансфере, чиновник проверяет комплект по s.19 ter и квоту, считает платежи от оценочной стоимости (ราคาประเมินทุนทรัพย์) и/или цены сделки, касса, регистрация перехода права, новое имя в title deed.",
+      docs: "Весь пакет шага 5 плюс заявляемая договорная цена.",
+      org: "สำนักงานที่ดิน (Land Office) провинции или района, где зарегистрирован кондоминиум.",
+      deadline: "Один день — при полном комплекте.",
+      pay: "См. таблицу ниже. Кто платит — как записали в договоре на шаге 3; в скобках указан обычай.",
+      table: {
+        head: ["Платёж", "Ставка", "База", "Обычай «кто платит»", "Норма"],
+        rows: [
+          ["Transfer fee", "2% (льгота 0,01% — только тайцам)", "оценочная стоимость", "50/50 (у застройщика — покупатель не более половины)", "[[N-09]] [[N-10]]"],
+          ["SBT — если продавец владел менее 5 лет и нет исключений", "3,3%", "большее из: оценка или цена", "продавец", "[[N-11]]"],
+          ["Гербовый сбор — если SBT не взимался", "0,5%", "большее из: оценка или цена", "продавец", "[[N-12]]"],
+          ["WHT продавца-физлица", "прогрессия по формуле (вычет 92…50% по годам, ÷ годы, шкала 5–35%)", "оценочная стоимость", "продавец", "[[N-13]]"],
+          ["WHT продавца-юрлица", "1%", "большее из: оценка или цена ⚠️ расхождение с Минфином", "продавец-компания", "[[N-13]]"]
+        ]
+      },
+      risks: [
+        "SBT и гербовый сбор ВЗАИМОИСКЛЮЧАЮЩИЕ — не суммировать.",
+        "«Цена в договоре ниже оценки» не экономит: база — большее из двух.",
+        "Занижение заявленной цены — налоговое нарушение обеих сторон.",
+        "Чек из кассы хранить: понадобится для будущей продажи и репатриации."
+      ],
+      norms: ["N-02", "N-03", "N-05", "N-09", "N-10", "N-11", "N-12", "N-13"]
+    },
+    {
+      n: 7, t: "После сделки: что забрать и что теперь должен",
+      action: "Забрать title deed со своим именем; при желании — жёлтую домовую книгу для иностранца (ทะเบียนบ้าน เล่มเหลือง; практика, не обязанность ⚠️); встать на учёт по общим расходам в юрлице дома; хранить пакет валютных доказательств.",
+      docs: "Title deed на новое имя; чеки кассы Land Office; пакет банковских подтверждений.",
+      org: "Land Office; юрлицо кондоминиума; районная администрация (домовая книга).",
+      deadline: "Постоянные обязанности — бессрочно.",
+      pay: "Ежегодный Land & Building Tax для жилья (ставки низкие; точные текущие в корпусе НЕ зафиксированы ⚠️); общие расходы дому.",
+      risks: [
+        "Неуплата общих расходов заблокирует будущую продажу [[N-05]].",
+        "События-триггеры обязанности продать в срок до 1 года: наследство сверх квоты, утрата residence или BOI-статуса, депортация — и отдельный дедлайн 60 дней на уведомление [[N-04]].",
+        "Будущая продажа — зеркальный расчёт налогов: владение менее 5 лет даёт SBT 3,3% [[N-11]] [[N-12]] [[N-13]].",
+        "Вывод денег за рубеж — через банк с доказательствами происхождения [[N-08]] ⚠️ практика."
+      ],
+      norms: ["N-04", "N-05", "N-08", "N-11", "N-12", "N-13"]
+    }
+  ],
+  risky: [
+    { lv: "risk", t: "Владение через тайскую компанию с номиналами", d: "Незаконно (номинальные акционеры), риск принудительной продажи и уголовной ответственности. В рантайме — красный дисклеймер, не инструкция.", n: "N-17" },
+    { lv: "warn", t: "Leasehold 30 лет", d: "Не собственность. «30+30+30» — договорная надежда, а не вещное право.", n: "N-16" },
+    { lv: "warn", t: "Покупка тайским супругом", d: "Режим общего имущества, заявление о личных средствах; со-владение через брак не обходит квоту.", n: "N-02" },
+    { lv: "info", t: "Наследование юнита иностранцем", d: "Отдельный сценарий: обязанность продать и квота.", n: "N-04" }
+  ],
+  quiz: [
+    {
+      q: "Кто покупатель?",
+      opts: [
+        { t: "Иностранец — физлицо (в том числе гражданин РФ)", d: "Главная ветка карты: путь «ввоз валюты» по s.19(5)" },
+        { t: "Гражданин Таиланда", d: "Карта составлена для иностранного покупателя", banner: { lv: "warn", h: "Эта карта — про иностранного покупателя.", b: "Для тайского физлица шаги в целом те же, но на сборы действует льгота 0,01% при цене и оценке не выше 7 млн бат [[N-10]], а валютные доказательства по s.19 ter не требуются [[N-03]]. Отдельной карты для тайского покупателя в базе нет." } }
+      ]
+    },
+    {
+      q: "Как оформляете владение?",
+      opts: [
+        { t: "На себя, freehold — собственность на юнит", d: "Эта карта" },
+        { t: "Через тайскую компанию", d: "Риск-ветка", banner: { lv: "risk", h: "Красный флаг: номинальные тайские акционеры запрещены.", b: "Риск принудительной продажи и уголовной ответственности [[N-17]]. Ветка в корпусе НЕ детализирована и в прототипе не разворачивается — ниже показана основная, законная карта freehold." } },
+        { t: "Аренда 30 лет (leasehold)", d: "Риск-ветка", banner: { lv: "warn", h: "Leasehold — это не собственность.", b: "Аренда до 30 лет; продление «30+30+30» — договорное обещание, а не вещное право [[N-16]]. Ветка в корпусе не детализирована; ниже — карта freehold." } }
+      ]
+    }
+  ]
+};
+SCENARIOS.visa = {
+  id: "visa",
+  title: "Легальное долгосрочное пребывание гражданина РФ в Таиланде",
+  sub: "Сценарий-маршрутизатор: 8 веток, 23 нормы. Главная работа — вывести на правильную визу.",
+  checked: "27.08.2026",
+  verified: "ресёрчер-кодификатор 27.08.2026. Фактчек-гейт архивиста по этому корпусу ещё НЕ проходил — часть цифр стоит на вторичных источниках, это помечено в карточках норм.",
+  scopeNote: "Скоуп: гражданин РФ, обычный паспорт, легальное пребывание от «разведка на месяц» до «жить годами».",
+  frame: { lv: "warn", h: "Рамка-2026, влияющая на все ветки.", b: "Безвиз для граждан РФ сейчас 60 дней, но реформа одобрена кабмином и ждёт только публикации в Royal Gazette (вступает через 15 дней после неё) → планировать надо под 30 дней [[V-08]]. Несгораемый минимум россиянина — 30 дней по межправительственному договору [[V-07]]." },
+  entry: [
+    { q: "Цель и профиль (главный вопрос)", v: "(a) разведка/зимовка до 3 мес · (b) удалённая работа на не-тайских клиентов · (c) пенсия 50+ · (d) работа на тайскую компанию · (e) учёба · (f) семья · (g) «есть деньги, нет статуса» · (h) высокий пассивный доход или активы" },
+    { q: "Возраст", v: "До 50 / 50 и старше. 50+ открывает O-A и пенсионное продление [[V-15]] [[V-16]]. Виза O-X для граждан РФ ЗАКРЫТА [[V-17]]" },
+    { q: "Ликвидные средства", v: "500 000 бат — входной билет DTV [[V-12]] · 800 000 бат на тайском счёте — пенсионное продление [[V-16]] · 80 тыс. USD дохода в год или 1 млн USD активов — LTR [[V-13]]" },
+    { q: "Откуда доход", v: "Зарубежная зарплата/фриланс → DTV или LTR-WFT · пассивный доход + 50 лет → LTR-Pensioner или O-A · тайский работодатель → ТОЛЬКО Non-B с разрешением на работу [[V-18]]" },
+    { q: "Где вы сейчас", v: "В РФ → подача в посольстве в Москве · уже в Таиланде → in-country конвертация и продления. DTV из Таиланда НЕ выдаётся [[V-12]]" },
+    { q: "Горизонт", v: "До 60 дней → безвиз · до года → TR с продлениями или O-A · годы → DTV, LTR, Privilege или цепочка extension" }
+  ],
+  branches: {
+    A: {
+      code: "A", t: "Разведка или зимовка (до 90 дней, без визы или по TR)",
+      sub: "Самый дешёвый вход. Дальше — либо выход в долгую ветку, либо анти-паттерн бордер-ранов.",
+      steps: [
+        { n: "A1", t: "Въезд без визы",
+          action: "Не позднее чем за 72 часа до рейса заполнить TDAC на tdac.immigration.go.th — бесплатно. На границе получить штамп 60 дней (после реформы — 30).",
+          docs: "Паспорт (обычно с запасом не менее 6 месяцев), QR-код TDAC. Формально могут спросить обратный билет и 10–20 тыс. бат средств [[V-22]] ⚠️.",
+          org: "Immigration Bureau, пограничный контроль.", deadline: "TDAC — в пределах 72 часов до въезда.", pay: "TDAC бесплатна.",
+          risks: ["Платные «TDAC-сервисы» — скам, карта бесплатная [[V-11]].",
+                  "Офицер вправе развернуть «серийного туриста»: более двух безвизовых въездов подряд без внятной легенды — зона риска [[V-09]].",
+                  "Въезд по земле = продления не будет [[V-09]]."],
+          norms: ["V-07", "V-08", "V-09", "V-11", "V-22"] },
+        { n: "A2", t: "Продление на 30 дней (по желанию)",
+          action: "До конца штампа прийти в офис иммиграции по месту жительства: форма TM7, фото 4×6, копии паспорта.",
+          docs: "TM7, фото, копии паспорта, квитанция TM30 от арендодателя [[V-03]].",
+          org: "Immigration Bureau (любой офис).", deadline: "До истечения штампа.", pay: "1 900 бат [[V-09]] ⚠️ вторичный источник.",
+          risks: ["С 12.11.2025 продлений максимум 2 за календарный год: первое +30 дней, второе только +7 [[V-09]].",
+                  "Без TM30 продление не примут [[V-03]].",
+                  "Overstay даже в 1 день — 500 бат в день и след в системе [[V-06]]."],
+          norms: ["V-09", "V-03", "V-06"] },
+        { n: "A3", t: "Нужно больше 90 дней — выход в ветки B–H",
+          action: "Развилка: туристическая виза TR из Москвы (60 дней + продление) / METV (полгода серийных въездов, но финансовый порог 7 000 USD на каждый из 6 месяцев) / долгосрочные ветки.",
+          docs: "См. требования TR и METV [[V-10]].", org: "Посольство в Москве / e-visa.", deadline: "—", pay: "TR — 40 USD, METV — 200 USD [[V-10]].",
+          risks: ["«Жить на бордер-ранах» — больше не стратегия: дискреция офицеров ужесточена [[V-09]]. В рантайме это подаётся как анти-паттерн, а не как совет."],
+          norms: ["V-10", "V-09"] }
+      ],
+      norms: ["V-07", "V-08", "V-09", "V-10", "V-11", "V-22"]
+    },
+    B: {
+      code: "B", t: "Удалёнщик или фрилансер с иностранным доходом → DTV",
+      sub: "Главная ветка RU-экспата и самый дешёвый легальный вход «надолго»: виза 5 лет, до 180 дней за въезд.",
+      entry: ["Возраст 20+ (⚠️ вторичный источник).",
+              "Работа и клиенты ВНЕ Таиланда (Workcation) ИЛИ зачисление на тайскую программу (Soft Power: муай-тай, кулинария, лечение).",
+              "500 000 бат ликвидных средств: выписка за 3 месяца с конечным балансом не ниже порога."],
+      steps: [
+        { n: "B1", t: "Самопроверка входа",
+          action: "Проверить три условия сразу: возраст, источник дохода вне Таиланда (или зачисление на тайскую программу), 500 000 бат на счёте с историей.",
+          docs: "Черновик пакета: выписка, договор, портфолио.", org: "Самостоятельно.", deadline: "До подачи.", pay: "—",
+          risks: ["Деньги «занесли вчера» — главный триггер отказа: посты хотят видеть остаток, живущий на счёте.",
+                  "Работа на тайских клиентов по DTV запрещена [[V-12]] ⚠️ вторичный источник."],
+          norms: ["V-12"] },
+        { n: "B2", t: "Сбор evidence-пакета",
+          action: "Собрать доказательства по своей категории.",
+          docs: "Workcation: выписка за 3 месяца (ФИО как в паспорте, баланс не менее 500 000 бат в любой валюте по курсу на дату выписки); трудовой договор или справка работодателя плюс регистрация компании, ЗАВЕРЕННЫЕ посольством страны компании; портфолио фрилансера; зарплатные ведомости за 6 месяцев. Soft Power: письмо-зачисление тайской школы, зала или госпиталя с программой, сроками и оплатой.",
+          org: "Работодатель, банк, посольство страны компании.", deadline: "Заверение документов — самый долгий пункт для россиян с работодателем в РФ или СНГ.", pay: "Консульские сборы за заверение (в корпусе не зафиксированы ⚠️).",
+          risks: ["Выписки российских банков — на английском или с заверенным переводом (практика ⚠️).",
+                  "Подсанкционные банки могут не восприниматься постом — держать средства в нейтральном банке (практика, НЕ норма ⚠️)."],
+          norms: ["V-12"] },
+        { n: "B3", t: "Подача",
+          action: "Подать через портал thaievisa.go.th на выбранный пост.",
+          docs: "Пакет из шага B2.", org: "Для находящихся в РФ — посольство в Москве; из третьей страны — местный пост. Из Таиланда DTV не выдаётся.",
+          deadline: "Около 5 рабочих дней после подтверждения комплектности (Москва).", pay: "350 USD (Москва) · 340 USD (Хошимин) · 10 000 бат (базовый анонс MFA) [[V-12]].",
+          risks: ["Отказ — без возврата сбора.",
+                  "Каждый пост вправе требовать дополнительные документы для отдельных стран и по-своему трактовать «сезонирование» денег."],
+          norms: ["V-12"] },
+        { n: "B4", t: "Жизнь по DTV",
+          action: "Въезд (не забыть TDAC) → штамп 180 дней. Нужно дольше без выезда — разовое продление ещё на 180 дней (TM7) в офисе иммиграции; либо выезд и новый въезд = новые 180 дней. Виза многократная на 5 лет, re-entry permit НЕ нужен.",
+          docs: "TDAC, паспорт с визой, TM7 при продлении.", org: "Immigration Bureau.", deadline: "Продление — до конца 180-дневного штампа.", pay: "1 900 бат за продление ⚠️ вторичный источник.",
+          risks: ["Продление на 180 дней — по усмотрению офиса, не автомат.",
+                  "Смена работодателя или статуса за 5 лет визу формально не аннулирует, но на границе могут спросить актуальные доказательства (практика ⚠️).",
+                  "Налоговое резидентство при пребывании 180+ дней в году — отдельная карта, в базе её ПОКА НЕТ."],
+          norms: ["V-12", "V-02", "V-03", "V-11"] }
+      ],
+      norms: ["V-12", "V-02", "V-03", "V-11"]
+    },
+    C: {
+      code: "C", t: "Пенсия 50+ — две легальные дороги",
+      sub: "Это ВЫБОР, а не жёсткое ветвление: обе дороги законны и отличаются деньгами, страховкой и местом старта.",
+      compare: {
+        head: ["Критерий", "C1 · O-A из Москвы", "C2 · in-country Non-O + extension"],
+        rows: [
+          ["Где стартуете", "в РФ", "уже в Таиланде (безвиз или TR)"],
+          ["Финансовый порог", "1 200 000 бат / 100 000 в месяц [[V-15]]", "800 000 бат на ТАЙСКОМ счёте / 65 000 в месяц [[V-16]] ⚠️"],
+          ["Страховка 100 000 USD / 3 млн бат", "обязательна, и на продлениях линии O-A", "НЕ требуется ⚠️"],
+          ["Тайский счёт", "не нужен на выдачу", "нужен обязательно (плюс сезонирование 2 месяца)"],
+          ["Несудимость и медсправка", "обязательны", "не требуются"],
+          ["Что даёт", "год с мультивъездом сразу", "Non-O 90 дней → продление год за годом"]
+        ]
+      },
+      steps: [
+        { n: "C1", t: "Дорога 1 — O-A из Москвы",
+          action: "Собрать и подать пакет в посольство Таиланда в Москве.",
+          docs: "Паспорт, анкета, фото; подтверждение финансов (депозит 1 200 000 бат за последние 3 месяца ИЛИ доход 100 000 бат в месяц ИЛИ комбинация); страховой полис 100 000 USD / 3 000 000 бат, включая COVID-19; справка о несудимости не старше 3 месяцев; медсправка не старше 3 месяцев.",
+          org: "Royal Thai Embassy, Moscow.", deadline: "Обработка 5 рабочих дней.", pay: "200 USD [[V-15]].",
+          risks: ["Вторичка хором обещает «800 000 бат» — у Москвы порог 1,2 млн [[V-15]]. Конфликт источников зафиксирован в карточке нормы.",
+                  "Страховка должна быть из одобренного списка (практика ⚠️).",
+                  "После окончания года действия визы продление уже in-country по правилам C2, но страховка для линии O-A остаётся обязательной."],
+          norms: ["V-15"] },
+        { n: "C2", t: "Дорога 2 — in-country: безвиз → Non-O → годовые продления",
+          action: "(1) Въехать по безвизу. (2) Открыть тайский счёт. (3) Завести и «отсезонировать» 800 000 бат в течение 2 месяцев. (4) Конвертировать статус в Non-O в офисе иммиграции. (5) Через 60–90 дней — годовое продление (TM7), далее ежегодно.",
+          docs: "TM7, паспорт, банковская книжка и письмо банка, TM30, документы по месту жительства.",
+          org: "Immigration Bureau по месту жительства; тайский банк.",
+          deadline: "Для конвертации нужно не менее 15 дней остатка штампа (практика ⚠️).",
+          pay: "1 900 бат за продление ⚠️ вторичный источник.",
+          risks: ["Правило денег: 800 000 бат держатся 2 месяца до и 3 месяца после каждого продления, между — остаток не ниже 400 000; либо 65 000 бат в месяц входящих 12 месяцев подряд [[V-16]] ⚠️.",
+                  "Банки нерезиденту без визы открывают счёт неохотно — практика зависит от отделения.",
+                  "Перевод 800 000 бат из РФ упирается в SWIFT-ограничения российских банков; легальные обходы — практика, а не норма ⚠️.",
+                  "RE-ENTRY PERMIT ПЕРЕД КАЖДЫМ ВЫЛЕТОМ, иначе продление сгорает [[V-04]].",
+                  "Агенты «сделаем без денег на счёте» — коррупционная схема и риск отзыва визы. Красный флаг."],
+          norms: ["V-16", "V-04", "V-02", "V-03"] }
+      ],
+      norms: ["V-15", "V-16", "V-04", "V-02", "V-03", "V-17"]
+    },
+    D: {
+      code: "D", t: "Высокий доход или активы → LTR (10 лет)",
+      sub: "Самый комфортный режим: годовой отчёт вместо 90-дневного, без re-entry permit, digital work permit.",
+      entry: ["Пассивный доход 80 тыс. USD в год и возраст 50+ (Wealthy Pensioner).",
+              "Удалённая работа на крупную компанию с доходом 80 тыс. USD (Work-from-Thailand Professional).",
+              "1 млн USD активов и 500 тыс. USD инвестиций в Таиланд (Wealthy Global Citizen).",
+              "Целевая специальность (Highly-Skilled Professional).",
+              "Всем: страховка 50 тыс. USD ИЛИ депозит 100 тыс. USD [[V-13]]."],
+      steps: [
+        { n: "D1", t: "Онлайн-заявка", action: "Подать заявку на ltr.boi.go.th по своей категории.", docs: "Доказательства дохода, активов, инвестиций, страховки.", org: "Board of Investment (BOI).", deadline: "—", pay: "—", risks: ["Доказуемость пассивного дохода российского происхождения: пенсия РФ в 80 тыс. USD не превращается; дивиденды и аренду надо доказывать бумагами."], norms: ["V-13"] },
+        { n: "D2", t: "Endorsement BOI", action: "Дождаться одобрения (endorsement) BOI.", docs: "—", org: "BOI.", deadline: "20 рабочих дней.", pay: "—", risks: ["Лимит иждивенцев — конфликт источников: на сайте BOI остался максимум 4, вторичка пишет о снятии [[V-13]] ⚠️."], norms: ["V-13"] },
+        { n: "D3", t: "Выдача визы", action: "Получить визу в Таиланде — центр TIESC, One Bangkok.", docs: "Паспорт, endorsement.", org: "TIESC / Immigration.", deadline: "—", pay: "50 000 бат на человека [[V-13]].", risks: [], norms: ["V-13"] }
+      ],
+      gives: ["10 лет (5+5).", "Годовой отчёт вместо 90-day report [[V-02]].", "Re-entry permit не нужен [[V-04]].", "Digital work permit.", "0% на заграничный доход; 17% ПИТ для Highly-Skilled."],
+      norms: ["V-13", "V-02", "V-04"]
+    },
+    E: {
+      code: "E", t: "Работа на тайскую компанию → Non-B + work permit",
+      sub: "Порядок жёсткий и обратного хода не имеет: сначала работодатель, потом виза, потом разрешение на работу.",
+      steps: [
+        { n: "E1", t: "Работодатель подаёт WP3", action: "Работодатель подаёт форму WP3 в Department of Employment ДО подачи на визу.", docs: "Документы компании: регистрация, акционеры, налоговые формы.", org: "Foreign Workers Division, Ministry of Labour.", deadline: "До визы.", pay: "—", risks: ["Без одобрения WP3 виза не оформляется."], norms: ["V-18"] },
+        { n: "E2", t: "Одобрение", action: "Получить одобрение Министерства труда.", docs: "—", org: "Ministry of Labour.", deadline: "—", pay: "—", risks: [], norms: ["V-18"] },
+        { n: "E3", t: "Non-B в Москве", action: "Подать на неиммиграционную визу B в посольстве.", docs: "Одобрение WP3, документы компании, дипломы заявителя.", org: "Посольство Таиланда в Москве.", deadline: "—", pay: "80 USD (однократная, 3 месяца) / 200 USD (многократная) [[V-18]].", risks: [], norms: ["V-18"] },
+        { n: "E4", t: "Въезд и получение work permit", action: "Въехать и получить разрешение на работу.", docs: "Паспорт с визой, пакет работодателя.", org: "Department of Employment.", deadline: "До начала работы.", pay: "—", risks: ["Работа ДО получения разрешения — уголовная ответственность по трудовому декрету и s.37(1) [[V-01]] [[V-18]]."], norms: ["V-18", "V-01"] },
+        { n: "E5", t: "Годовое продление у иммиграции", action: "Ежегодно продлевать пребывание.", docs: "TM7, пакет работодателя.", org: "Immigration Bureau.", deadline: "Ежегодно.", pay: "1 900 бат ⚠️ вторичный источник.", risks: ["Критерии работодателя — капитал 2 млн бат и 4 тайских сотрудника на 1 иностранца (кроме BOI-компаний) ⚠️ вторичный источник.", "Увольнение рушит визовую цепочку: на смену статуса 24 часа–7 дней (практика ⚠️).", "«Номинальное трудоустройство» через агентов — красный флаг."], norms: ["V-18", "V-01"] }
+      ],
+      norms: ["V-18", "V-01"]
+    },
+    F: {
+      code: "F", t: "Учёба → ED / ED PLUS",
+      sub: "Права работать виза не даёт. Языковые школы «ради визы» — зона зачисток.",
+      steps: [
+        { n: "F1", t: "Зачисление", action: "Поступить и получить письмо-зачисление на официальном бланке.", docs: "Письмо учебного заведения.", org: "Вуз или школа.", deadline: "До подачи на визу.", pay: "Оплата обучения.", risks: [], norms: ["V-19"] },
+        { n: "F2", t: "Виза ED в Москве", action: "Подать пакет в посольство.", docs: "Письмо-зачисление, подтверждение платёжеспособности или спонсорское письмо.", org: "Посольство Таиланда в Москве.", deadline: "—", pay: "80 USD [[V-19]].", risks: [], norms: ["V-19"] },
+        { n: "F3", t: "Въезд", action: "Въехать; первичное пребывание — не более 90 дней.", docs: "TDAC, паспорт с визой.", org: "Immigration.", deadline: "—", pay: "—", risks: [], norms: ["V-19", "V-11"] },
+        { n: "F4", t: "Продления по учёбе", action: "Продлевать пребывание через вуз или школу.", docs: "Документы учебного заведения.", org: "Immigration Bureau.", deadline: "По графику учёбы.", pay: "1 900 бат ⚠️ вторичный источник.", risks: ["Проверки посещаемости и внезапные языковые мини-экзамены при продлении (практика ⚠️).", "ED PLUS (университеты): без re-entry permit, продлевает вуз, плюс 1 год после выпуска на поиск работы [[V-19]]."], norms: ["V-19"] }
+      ],
+      norms: ["V-19", "V-11"]
+    },
+    G: {
+      code: "G", t: "Семья",
+      sub: "Две подветки: брак с гражданином Таиланда и семья экспата-держателя визы.",
+      steps: [
+        { n: "G1", t: "Брак с гражданином или гражданкой Таиланда",
+          action: "Получить Non-O в Москве, затем перейти на годовые продления внутри страны.",
+          docs: "Свидетельство о браке и тайские документы супруга; подтверждение 400 000 бат или эквивалента.",
+          org: "Посольство в Москве (виза) → Immigration Bureau (продления).",
+          deadline: "Первичное пребывание — не более 90 дней.", pay: "80 USD / 200 USD [[V-14]].",
+          risks: ["Годовое продление: 400 000 бат на тайском счёте с сезонированием 2 месяца ИЛИ доход 40 000 бат в месяц ⚠️ вторичный источник.",
+                  "Проверки реальности брака (фото, визит).",
+                  "Право работы НЕ даётся автоматически — нужен work permit [[V-18]]."],
+          norms: ["V-14", "V-18"] },
+        { n: "G2", t: "Семья экспата",
+          action: "Оформить иждивенцев по визе основного держателя.",
+          docs: "Свидетельства о браке и рождении, документы основного держателя визы.",
+          org: "Посольство / BOI / Immigration.", deadline: "—", pay: "По категории основной визы.",
+          risks: ["Супруг и дети до 20 лет держателя DTV — категория dependents, свои 500 000 бат на заявителя [[V-12]].",
+                  "Семья LTR — dependents LTR [[V-13]].",
+                  "Дети в тайской школе → ED ребёнку и Non-O guardian родителю: критерии в корпусе НЕ собраны ⚠️."],
+          norms: ["V-12", "V-13", "V-14"] }
+      ],
+      norms: ["V-14", "V-12", "V-13"]
+    },
+    H: {
+      code: "H", t: "«Деньги есть, статуса нет» → Thailand Privilege",
+      sub: "Резидентство за членский взнос. Без требований к возрасту и доходу, но и без права работы.",
+      entry: ["Членский взнос: Bronze 650 000 бат / 5 лет (тариф до 30.09.2026), Gold 900 000 / 5 лет, Platinum 1 500 000 / 10 лет, Diamond 2 500 000 / 15 лет, Reserve 5 000 000 / 20 лет (по приглашению) [[V-20]].",
+              "Требований к доходу и возрасту нет."],
+      steps: [
+        { n: "H1", t: "Анкета и проверка бэкграунда", action: "Выбрать тариф, подать анкету, пройти проверку.", docs: "Анкета, паспорт.", org: "Thailand Privilege Card Co.", deadline: "—", pay: "Членский взнос по тарифу [[V-20]].", risks: ["Это membership, а не вещное право: оператор уже менял условия (Elite → Privilege, 2023) и может менять дальше.", "Bronze-тариф — окно до 30.09.2026 [[V-20]]."], norms: ["V-20"] }
+      ],
+      gives: ["Мультивиза на 5–20 лет, до 1 года за въезд.", "Консьерж и аэропортовый VIP.", "Права работы НЕТ."],
+      norms: ["V-20"]
+    }
+  },
+  common: {
+    obligations: {
+      head: ["Обязанность", "Кто и когда", "Санкция", "Норма"],
+      rows: [
+        ["TDAC перед каждым въездом", "сам, не позднее 72 ч до границы", "не пустят на рейс или границу", "[[V-11]]"],
+        ["TM30", "принимающая сторона, 24 ч после заселения", "до 2 000 бат (отель 2–10 тыс.); де-факто блокирует продления", "[[V-03]]"],
+        ["90-day report", "сам, каждые 90 дней непрерывного пребывания (LTR — раз в год)", "до 5 000 + 200 в день по акту; 2 000 типовой", "[[V-02]] [[V-13]]"],
+        ["Re-entry permit до вылета", "все, кто живёт на extension (кроме DTV, LTR, Privilege, ED PLUS)", "сгорание годового продления", "[[V-04]]"],
+        ["Продление вовремя", "сам, до конца штампа", "overstay 500 в день, кэп 20 000; свыше 90 дней — бан от 1 года", "[[V-05]] [[V-06]]"],
+        ["Не работать без разрешения", "все, кроме оформленных Non-B и LTR-HSP", "уголовная ответственность, депортация, бан", "[[V-01]] [[V-18]]"]
+      ]
+    },
+    grabli: [
+      "Планируй под 30 дней безвиза, а не 60: реформа одобрена и ждёт публикации [[V-07]] [[V-08]].",
+      "O-A через Москву — уже 1,2 млн бат, а не «800k из гайдов». 800 000 живёт только в in-country продлении [[V-15]] [[V-16]].",
+      "Выезд без re-entry permit сжигает годовое продление — самая дорогая механическая ошибка [[V-04]].",
+      "Overstay свыше 90 дней = бан 1 год; арест с ЛЮБЫМ overstay = бан 5 лет. «Заплачу штраф на выезде» работает только до 90 дней [[V-06]].",
+      "Деньги из РФ: SWIFT в тайские банки из подсанкционных банков не ходят, а 500 000 / 800 000 бат надо показать «сезонированными» — готовить сильно заранее (практика).",
+      "TM30 — не твоя обязанность, но твоя проблема: без квитанции арендодателя не примут ни продление, ни 90-day report [[V-03]].",
+      "Бордер-раны умерли как стратегия с 12.11.2025 [[V-09]]. Долго жить = взять долгую визу; DTV — самый дешёвый легальный вход [[V-12]].",
+      "O-X россиянам недоступна — не верить блогам, продающим «5-летнюю пенсионную визу» для РФ [[V-17]]."
+    ],
+    parked: [
+      { lv: "info", t: "PR (постоянное резидентство)", d: "Квота 100 человек на страну в год, после 3 лет продлений — отдельный сценарий.", n: "V-21" },
+      { lv: "info", t: "Гражданство и натурализация", d: "Отдельный сценарий, в базе нет.", n: "V-23" },
+      { lv: "warn", t: "Налоговое резидентство от 180 дней и правила ремитанса", d: "Обязательный сосед сценария — у держателей DTV и LTR это вопрос №2. Отдельная карта, в базе ПОКА НЕТ.", n: "" },
+      { lv: "risk", t: "Агентские «визы без денег на счёте», номинальное трудоустройство", d: "Незаконные схемы. В рантайме — только красный дисклеймер.", n: "V-18" }
+    ],
+    params: {
+      head: ["Параметр", "Значение", "Условия / окно", "Норма", "Проверка"],
+      rows: [
+        ["Безвиз РФ по договору", "30 дней", "бессрочно, пока договор жив", "[[V-07]]", "первоисточник"],
+        ["Безвиз односторонний", "60 дней", "с 15.07.2024 до вступления реформы", "[[V-08]]", "первоисточник, истекает"],
+        ["Продление безвиза/TR", "+30 дней, 1 900 бат", "с 12.11.2025: максимум 2 в год (30, потом 7); при въезде по земле — 0", "[[V-09]]", "вторичный"],
+        ["Сбор TR / METV", "40 / 200 USD", "Москва", "[[V-10]]", "первоисточник"],
+        ["Финпорог TR / METV", "20 000 бат / 7 000 USD × 6 мес", "Москва", "[[V-10]]", "первоисточник"],
+        ["Финпорог DTV", "500 000 бат, выписка 3 мес", "все посты; сезонность трактуют посты", "[[V-12]]", "первоисточник"],
+        ["Сбор DTV", "350 USD (Москва) · 340 USD (Хошимин) · 10 000 бат (база)", "по посту подачи", "[[V-12]]", "первоисточник"],
+        ["Пребывание DTV", "180 дней + одно продление на 180", "за каждый въезд; виза 5 лет", "[[V-12]]", "первоисточник/вторичный"],
+        ["Доход LTR", "80 тыс. USD в год (или 40 тыс. + условия)", "—", "[[V-13]]", "первоисточник"],
+        ["Сбор LTR", "50 000 бат", "выдача в Таиланде", "[[V-13]]", "первоисточник"],
+        ["Финпорог O-A (Москва)", "1 200 000 бат / 100 000 бат в месяц", "на выдачу; конфликт с вторичкой «800k»", "[[V-15]]", "первоисточник"],
+        ["Страховка O-A", "100 000 USD / 3 000 000 бат", "на выдачу и на продлениях O-A", "[[V-15]]", "первоисточник"],
+        ["Пенсионное продление", "800 000 бат (2 мес до / 3 после, floor 400 000) или 65 000 бат в месяц", "тайский банк; ежегодно", "[[V-16]]", "⚠️ вторичный"],
+        ["Продление по браку", "400 000 бат (2 мес) или 40 000 бат в месяц", "тайский банк; ежегодно", "[[V-14]]", "⚠️ вторичный"],
+        ["Сбор extension of stay", "1 900 бат", "все годовые и туристические продления", "[[V-09]] [[V-16]]", "вторичный"],
+        ["Re-entry permit", "1 000 бат (однократный) / 3 800 (многократный)", "кроме DTV, LTR, Privilege", "[[V-04]]", "вторичный"],
+        ["Штраф overstay", "500 бат в день, кэп 20 000", "оплата на выезде или в офисе", "[[V-06]]", "первоисточник"],
+        ["Баны за overstay", "1 / 3 / 5 / 10 лет при явке · 5 / 10 лет при задержании", "пороги 90 дней, 1 год, 3 года, 5 лет", "[[V-06]]", "первоисточник"],
+        ["Штраф за просрочку 90-day", "до 5 000 + 200 в день (акт) · 2 000 (практика)", "конфликт акт/практика", "[[V-02]]", "первоисточник/практика"],
+        ["Тарифы Privilege", "650k / 900k / 1,5M / 2,5M / 5M бат", "Bronze до 30.09.2026", "[[V-20]]", "первоисточник"]
+      ]
+    }
+  },
+  quiz: [
+    {
+      q: "Ваше гражданство?",
+      opts: [
+        { t: "Российская Федерация", d: "Корпус собран именно под этот случай" },
+        { t: "Другое", d: "Часть норм гражданство-зависима", banner: { lv: "warn", h: "Корпус собран для граждан РФ.", b: "Гражданство — сквозной фильтр: безвизовые списки, двусторонние договоры и доступность визы O-X различаются по странам [[V-07]] [[V-08]] [[V-17]]. Ниже показана карта как есть — проверяйте применимость по своему гражданству." } }
+      ]
+    },
+    {
+      q: "Что вам ближе?",
+      opts: [
+        { t: "Разведка или зимовка до 3 месяцев", d: "Безвиз или туристическая виза", go: "A" },
+        { t: "Удалённая работа на не-тайских клиентов", d: "DTV — главная ветка RU-экспата", go: "B" },
+        { t: "Пенсия, мне 50 или больше", d: "O-A или in-country продление", go: "C", ask50: true },
+        { t: "Высокий пассивный доход или крупные активы", d: "LTR на 10 лет", go: "D" },
+        { t: "Работа на тайскую компанию", d: "Non-B и разрешение на работу", go: "E" },
+        { t: "Учёба", d: "ED / ED PLUS", go: "F" },
+        { t: "Семья: брак с тайцем или переезд с семьёй", d: "Non-O и dependents", go: "G" },
+        { t: "«Деньги есть, статуса нет»", d: "Thailand Privilege", go: "H" }
+      ]
+    }
+  ],
+  age50: {
+    q: "Вам уже исполнилось 50 лет?",
+    opts: [
+      { t: "Да, 50 или больше", d: "Пенсионная ветка открыта", go: "C" },
+      { t: "Нет, ещё нет 50", d: "Пенсионные визы недоступны", go: "B", banner: { lv: "warn", h: "Пенсионные дороги открываются только с 50 лет.", b: "И O-A [[V-15]], и in-country пенсионное продление [[V-16]] требуют возраста 50+. До этого возраста реальные варианты — DTV при иностранном доходе [[V-12]] или Thailand Privilege за взнос [[V-20]]. Ниже открыта ветка DTV." } }
+    ]
+  }
+};
+/* ============================================================
+   РАНТАЙМ: поиск → уточнение → сценарий → карточка нормы
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var LEVEL = {
+    primary:   { badge: "badge--ok",   txt: "✅ первоисточник прочитан", short: "первоисточник" },
+    secondary: { badge: "badge--warn", txt: "⚠️ вторичный источник / официальная сводка", short: "вторичка" },
+    unverified:{ badge: "badge--warn", txt: "⚠️ не проверено — первоисточник не читан", short: "не проверено" }
+  };
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+  function chip(id) {
+    var n = NORMS[id];
+    if (!n) return esc(id);
+    var cls = n.level === "primary" ? "nref" : "nref nref--u";
+    return '<button type="button" class="' + cls + '" data-norm="' + esc(id) +
+      '" aria-label="Открыть карточку нормы ' + esc(id) + '">' + esc(id) + "</button>";
+  }
+  function rich(s) {
+    return esc(s).replace(/\[\[([NV]-[0-9A-Za-z]+)\]\]/g, function (_, id) { return chip(id); });
+  }
+  function el(id) { return document.getElementById(id); }
+  function plural(n, forms) {
+    var a = Math.abs(n) % 100, b = a % 10;
+    if (a > 10 && a < 20) return n + " " + forms[2];
+    if (b > 1 && b < 5) return n + " " + forms[1];
+    if (b === 1) return n + " " + forms[0];
+    return n + " " + forms[2];
+  }
+
+  /* ---------- навигация ---------- */
+  var VIEWS = ["view-home", "view-nomatch", "view-quiz", "view-scenario", "view-prepare"];
+  var stack = [];
+  var S = { sc: null, branch: null, qi: 0, banners: [], q: "" };
+
+  function paint(v) {
+    VIEWS.forEach(function (id) { el(id).hidden = (id !== v); });
+    window.scrollTo(0, 0);
+    var h = document.querySelector("#" + v + " h1, #" + v + " h2");
+    if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+  }
+  function go(v, render) {
+    stack.push({ v: v, render: render, S: JSON.parse(JSON.stringify(S)) });
+    if (stack.length > 1) { try { history.pushState({ i: stack.length }, ""); } catch (e) {} }
+    render();
+    paint(v);
+  }
+  function back() {
+    if (stack.length <= 1) return;
+    stack.pop();
+    var cur = stack[stack.length - 1];
+    S = JSON.parse(JSON.stringify(cur.S));
+    cur.render();
+    paint(cur.v);
+  }
+  window.addEventListener("popstate", function () {
+    if (!el("modal").hidden) { closeModal(); return; }
+    if (stack.length > 1) back();
+  });
+  function backBtn(label) {
+    return '<div class="crumb"><button class="back" type="button" data-back="1">← ' + esc(label || "Назад") + "</button></div>";
+  }
+
+  /* ---------- матчинг запроса ---------- */
+  var KW = {
+    condo: ["кондо", "кондоминиум", "квартир", "апартамент", "недвижим", "жильё", "жилье", "фрихолд", "freehold",
+            "чанот", "chanote", "юнит", "land office", "земельн", "квота", "застройщик", "метр", "студи",
+            "купить дом", "купить квартиру", "покупк", "приобрест", "владет", "собственност", "ипотек", "паттай", "пхукет", "самуи"],
+    visa: ["виз", "переехать", "переезд", "релокац", "жить", "пребыв", "внж", "резидент", "dtv", "дтв", "ltr", "лтр",
+           "пенсион", "ретайр", "retirement", "безвиз", "overstay", "оверстей", "овэрстей", "продлен", "продлить",
+           "elite", "privilege", "привилег", "work permit", "разрешение на работу", "работать", "трудоустрой",
+           "учёб", "учеб", "студен", "школ", "универ", "брак", "жена", "муж", "супруг", "зимовк", "номад",
+           "кочевник", "фриланс", "удалён", "удален", "иммигра", "штамп", "90 дней", "tm30", "тм30", "граница",
+           "бордер", "экспат", "надолго", "остаться", "паспорт", "консульств", "посольств"]
+  };
+  var STOP_HINT = ["банкрот", "ликвидац", "развод", "наследств", "суд", "уголов", "штраф гибдд", "днд"];
+  var HINTS = [
+    { test: ["бизнес", "компани", "фирм", "ооо", "юрлиц", "стартап", "предприят"],
+      h: "Регистрации компании в Таиланде в базе нет.",
+      b: "Корпус знает о юрлицах только по краю: работа на тайскую компанию через Non-B и work permit [[V-18]], и красный флаг по владению недвижимостью через компанию с номинальными акционерами [[N-17]]. Foreign Business Act, порядок регистрации и лицензии — отдельный сценарий, он не собран.",
+      go: { sc: "visa", branch: "E", t: "Ветка E · Работа на тайскую компанию (Non-B + work permit)" } },
+    { test: ["налог", "tax", "резидентств", "ремитанс", "180 дней"],
+      h: "Отдельной карты по налоговому резидентству нет.",
+      b: "Она отмечена в корпусе как обязательный сосед визового сценария (у держателей DTV и LTR это вопрос №2), но пока припаркована. Что есть рядом: налоги при сделке с кондо — [[N-11]] [[N-12]] [[N-13]], и льгота по заграничному доходу у LTR [[V-13]].",
+      go: { sc: "visa", branch: "D", t: "Ветка D · LTR (там есть режим по заграничному доходу)" } }
+  ];
+
+  function score(q, list) {
+    var s = 0, i;
+    for (i = 0; i < list.length; i++) if (q.indexOf(list[i]) !== -1) s += list[i].length;
+    return s;
+  }
+  function normalize(q) { return " " + q.toLowerCase().replace(/ё/g, "ё").replace(/\s+/g, " ").trim() + " "; }
+
+  function doSearch(raw) {
+    var q = normalize(raw);
+    S.q = raw;
+    if (!q.trim()) return;
+    var a = score(q, KW.condo), b = score(q, KW.visa);
+    if (a > 0 && b > 0 && Math.abs(a - b) < 6) return go("view-nomatch", function () { renderChoose(raw); });
+    if (a === 0 && b === 0) return go("view-nomatch", function () { renderNoMatch(raw); });
+    startQuiz(a > b ? "condo" : "visa");
+  }
+
+  /* ---------- главная ---------- */
+  var CHIPS = ["купить кондо в Таиланде", "переехать надолго", "пенсионная виза", "открыть бизнес",
+               "перевести деньги на покупку квартиры", "продлить безвиз"];
+
+  function scenarioCardsHTML() {
+    return '<div class="pick">' +
+      '<button class="pick__item" type="button" data-open="condo"><span class="pick__t">Покупка кондоминиума иностранцем (freehold)</span>' +
+      '<span class="pick__d">7 шагов · 18 норм · корпус проверен 26.08.2026, фактчек архивиста пройден</span></button>' +
+      '<button class="pick__item" type="button" data-open="visa"><span class="pick__t">Легальное долгосрочное пребывание гражданина РФ</span>' +
+      '<span class="pick__d">8 веток (A–H) · 23 нормы · корпус собран 27.08.2026, фактчек ещё не пройден</span></button>' +
+      "</div>";
+  }
+
+  function renderHome() {
+    var c = el("chips");
+    if (!c.childNodes.length) {
+      c.innerHTML = CHIPS.map(function (t) {
+        return '<button class="chip" type="button" data-chip="' + esc(t) + '">' + esc(t) + "</button>";
+      }).join("");
+    }
+    el("home-extra").innerHTML =
+      '<div class="card card--flat"><h2 style="font-size:1rem;margin-bottom:.5rem">Что уже есть в базе</h2>' +
+      scenarioCardsHTML() +
+      '<p class="tiny" style="margin-top:.7rem">База сейчас покрывает Таиланд: 2 сценария и 41 норму. Запрос вне базы движок не додумывает — он честно говорит, что сценария нет.</p></div>';
+  }
+
+  /* ---------- нет сценария / выбор ---------- */
+  function availableBlock() {
+    return '<div class="card"><h2 style="font-size:1rem;margin-bottom:.5rem">Что уже есть в базе</h2>' + scenarioCardsHTML() + "</div>";
+  }
+  function renderNoMatch(q) {
+    var hint = null, i, j, ql = normalize(q), blocked = false;
+    for (i = 0; i < STOP_HINT.length; i++) if (ql.indexOf(STOP_HINT[i]) !== -1) blocked = true;
+    if (!blocked) {
+      for (i = 0; i < HINTS.length && !hint; i++)
+        for (j = 0; j < HINTS[i].test.length; j++)
+          if (ql.indexOf(HINTS[i].test[j]) !== -1) { hint = HINTS[i]; break; }
+    }
+    var h = backBtn("К поиску") +
+      '<h1 style="font-size:1.25rem">Такого сценария в базе пока нет</h1>' +
+      '<p class="lead" style="margin-top:.4rem">Запрос: «' + esc(q) + '». Движок не подгоняет ответ под вопрос: если карта не собрана и не проверена, он говорит об этом прямо.</p>';
+    if (hint) {
+      h += '<div class="banner banner--info" style="margin-top:1rem"><div><b>' + esc(hint.h) + "</b><br>" + rich(hint.b) + "</div></div>" +
+        '<div class="pick" style="margin-top:.8rem"><button class="pick__item" type="button" data-open="' + esc(hint.go.sc) + '" data-branch="' + esc(hint.go.branch || "") + '">' +
+        '<span class="pick__t">Ближайшее из базы: ' + esc(hint.go.t) + "</span></button></div>";
+    }
+    h += '<div style="margin-top:1.1rem">' + availableBlock() + "</div>";
+    el("view-nomatch").innerHTML = h;
+  }
+  function renderChoose(q) {
+    el("view-nomatch").innerHTML = backBtn("К поиску") +
+      '<h1 style="font-size:1.25rem">Запрос попадает сразу в два сценария</h1>' +
+      '<p class="lead" style="margin-top:.4rem">«' + esc(q) + '» — выберите, с чего начать.</p>' +
+      '<div style="margin-top:1rem">' + availableBlock() + "</div>";
+  }
+
+  /* ---------- уточняющие вопросы ---------- */
+  function startQuiz(scId) {
+    S.sc = scId; S.qi = 0; S.banners = []; S.branch = null;
+    go("view-quiz", renderQuiz);
+  }
+  function currentQuiz() {
+    var sc = SCENARIOS[S.sc];
+    if (S.qi === 99) return sc.age50;
+    return sc.quiz[S.qi];
+  }
+  function renderQuiz() {
+    var sc = SCENARIOS[S.sc], q = currentQuiz();
+    var total = sc.quiz.length, num = (S.qi === 99 ? total : S.qi + 1);
+    el("view-quiz").innerHTML = backBtn("Назад") +
+      '<p class="tiny" style="margin-bottom:.3rem">' + esc(sc.title) + " · уточнение " + num + " из " + total + (S.qi === 99 ? "+" : "") + "</p>" +
+      "<h1 style=\"font-size:1.25rem\">" + esc(q.q) + "</h1>" +
+      '<div class="pick" style="margin-top:.9rem">' + q.opts.map(function (o, i) {
+        return '<button class="pick__item" type="button" data-opt="' + i + '"><span class="pick__t">' + esc(o.t) + "</span>" +
+          (o.d ? '<span class="pick__d">' + esc(o.d) + "</span>" : "") + "</button>";
+      }).join("") + "</div>";
+  }
+  function pickOpt(i) {
+    var sc = SCENARIOS[S.sc], q = currentQuiz(), o = q.opts[i];
+    if (o.banner) S.banners.push(o.banner);
+    if (o.go) S.branch = o.go;
+    if (o.ask50) { S.qi = 99; return go("view-quiz", renderQuiz); }
+    if (S.qi === 99) return openScenario();
+    S.qi++;
+    if (S.qi < sc.quiz.length) return go("view-quiz", renderQuiz);
+    openScenario();
+  }
+
+  /* ---------- сценарий ---------- */
+  function openScenario(scId, branch) {
+    if (scId) { S.sc = scId; S.branch = branch || null; S.banners = []; }
+    go("view-scenario", renderScenario);
+  }
+  function bannerHTML(b) {
+    return '<div class="banner banner--' + esc(b.lv) + '"><div><b>' + esc(b.h) + "</b><br>" + rich(b.b) + "</div></div>";
+  }
+  function stepHTML(st) {
+    var h = '<article class="step"><div class="step__top"><span class="step__n">' + esc(st.n) + '</span>' +
+      '<h3 class="step__t">' + esc(st.t) + "</h3></div>" +
+      '<p class="step__a">' + rich(st.action) + "</p>";
+    if (st.debunk) h += '<div class="banner banner--info" style="margin-top:.7rem"><div>' + rich(st.debunk) + "</div></div>";
+    h += '<div class="kv">';
+    if (st.docs) h += '<div class="kv__r"><span class="kv__k">Документы</span><span class="kv__v">' + rich(st.docs) + "</span></div>";
+    if (st.org) h += '<div class="kv__r"><span class="kv__k">Орган / место</span><span class="kv__v">' + rich(st.org) + "</span></div>";
+    if (st.deadline) h += '<div class="kv__r"><span class="kv__k">Срок</span><span class="kv__v">' + rich(st.deadline) + "</span></div>";
+    if (st.pay) h += '<div class="kv__r"><span class="kv__k">Платежи</span><span class="kv__v">' + rich(st.pay) + "</span></div>";
+    h += "</div>";
+    if (st.table) h += tableHTML(st.table);
+    if (st.risks && st.risks.length) {
+      h += '<div class="risks"><div class="risks__h">Риски и грабли</div><ul>' +
+        st.risks.map(function (r) { return "<li>" + rich(r) + "</li>"; }).join("") + "</ul></div>";
+    }
+    if (st.extra) h += '<p class="small" style="margin-top:.6rem">' + rich(st.extra) + "</p>";
+    if (st.norms && st.norms.length) {
+      h += '<div class="norms"><span class="norms__l">Нормы</span>' + st.norms.map(chip).join("") + "</div>";
+    }
+    return h + "</article>";
+  }
+  function tableHTML(t) {
+    return '<div class="tablewrap"><table><thead><tr>' +
+      t.head.map(function (x) { return "<th>" + esc(x) + "</th>"; }).join("") + "</tr></thead><tbody>" +
+      t.rows.map(function (r) {
+        return "<tr>" + r.map(function (c) { return "<td>" + rich(c) + "</td>"; }).join("") + "</tr>";
+      }).join("") + '</tbody></table></div><p class="tablehint">→ таблица прокручивается вбок</p>';
+  }
+  function sect(title, inner) {
+    return '<section class="sect"><h2 class="sect__h">' + esc(title) + "</h2>" + inner + "</section>";
+  }
+
+  function renderScenario() {
+    var sc = SCENARIOS[S.sc], br = (sc.branches && S.branch) ? sc.branches[S.branch] : null;
+    var h = backBtn("Назад");
+    h += '<div class="sc-head"><h1>' + esc(sc.title) + "</h1>";
+    if (br) h += '<p class="lead" style="margin-top:.3rem"><b>Ветка ' + esc(br.code) + " · " + esc(br.t) + "</b><br>" + esc(br.sub) + "</p>";
+    else h += '<p class="lead" style="margin-top:.3rem">' + esc(sc.sub) + "</p>";
+    var nCount = (br ? br.norms : sc.steps.reduce(function (a, s) { return a.concat(s.norms); }, []))
+      .filter(function (v, i, arr) { return arr.indexOf(v) === i; }).length;
+    h += '<div class="metaline"><span class="badge badge--n">Корпус проверен: ' + esc(sc.checked) + "</span>" +
+      '<span class="badge badge--n">' + esc(plural(br ? br.steps.length : sc.steps.length, ["шаг", "шага", "шагов"])) + "</span>" +
+      '<span class="badge badge--n">' + esc(plural(nCount, ["норма", "нормы", "норм"])) + " на карте</span></div>";
+    h += '<p class="tiny" style="margin-top:.5rem">Кем проверено: ' + esc(sc.verified) + "</p></div>";
+
+    if (sc.frame) h += '<div style="margin-top:1rem">' + bannerHTML(sc.frame) + "</div>";
+    S.banners.forEach(function (b) { h += '<div style="margin-top:.6rem">' + bannerHTML(b) + "</div>"; });
+
+    if (!br) {
+      h += sect("Условия входа (ветвление)", '<div class="entry">' + sc.entry.map(function (e) {
+        return '<div class="entry__row"><div class="entry__q">' + esc(e.q) + '</div><div class="entry__v">' + rich(e.v) + "</div></div>";
+      }).join("") + "</div>");
+    }
+
+    if (br && br.entry) {
+      h += sect("Условия входа в ветку", '<div class="card card--flat"><ul class="stack-s" style="font-size:.92rem">' +
+        br.entry.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("") + "</ul></div>");
+    }
+    if (br && br.compare) {
+      h += sect("Сравнение дорог (это выбор, а не ветвление)", tableHTML(br.compare));
+    }
+
+    var steps = br ? br.steps : sc.steps;
+    h += sect("Шаги по порядку", steps.map(stepHTML).join(""));
+
+    h += '<div class="cta"><h3>Подготовить документы под мои данные</h3>' +
+      "<p>Заполнить формы, письма и заявления вашими данными — следующий этап движка.</p>" +
+      '<button class="btn btn--wide" type="button" data-prepare="1">Подготовить документы под мои данные</button></div>';
+
+    if (br && br.gives) {
+      h += sect("Что даёт", '<div class="card card--flat"><ul class="stack-s" style="font-size:.92rem">' +
+        br.gives.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("") + "</ul></div>");
+    }
+    if (sc.common) {
+      h += sect("Сквозные обязанности (все ветки)", tableHTML(sc.common.obligations));
+      h += sect("Топ-грабли гражданина РФ", '<div class="card card--flat"><ul class="stack-s" style="font-size:.92rem">' +
+        sc.common.grabli.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("") + "</ul></div>");
+      h += sect("Параметры: ставки, пороги, сборы", tableHTML(sc.common.params));
+      h += sect("Припарковано — в базе этого нет", sc.common.parked.map(function (r) {
+        return '<div class="banner banner--' + esc(r.lv) + '" style="margin-bottom:.5rem"><div><b>' + esc(r.t) + "</b><br>" + esc(r.d) +
+          (r.n ? " " + chip(r.n) : "") + "</div></div>";
+      }).join(""));
+      h += '<div class="pick" style="margin-top:1rem"><button class="pick__item" type="button" data-rebranch="1"><span class="pick__t">← Выбрать другую ветку</span><span class="pick__d">Вернуться к уточняющим вопросам маршрутизатора</span></button></div>';
+    }
+    if (sc.risky) {
+      h += sect("Отмеченные риск-ветки (вне скоупа карты)", sc.risky.map(function (r) {
+        return '<div class="banner banner--' + esc(r.lv) + '" style="margin-bottom:.5rem"><div><b>' + esc(r.t) + "</b><br>" + esc(r.d) +
+          (r.n ? " " + chip(r.n) : "") + "</div></div>";
+      }).join(""));
+    }
+    h += '<p class="tiny" style="margin-top:1.2rem">' + esc(sc.scopeNote) + "</p>";
+    el("view-scenario").innerHTML = h;
+  }
+
+  /* ---------- заглушка «подготовить документы» ---------- */
+  function renderPrepare() {
+    var sc = SCENARIOS[S.sc];
+    el("view-prepare").innerHTML = backBtn("Назад к шагам") +
+      '<h1 style="font-size:1.25rem">Здесь движок заполнит бумаги по вашим данным</h1>' +
+      '<div class="card" style="margin-top:1rem">' +
+      "<p>На этом шаге движок берёт ваши ответы и данные, подставляет их в документы сценария — заявления, доверенности, письма, анкеты, — а затем передаёт готовый пакет <b>лицензированному юристу-партнёру</b> на проверку и подачу.</p>" +
+      '<p style="margin-top:.7rem"><b>Этап в разработке.</b> В прототипе он не работает: формы не заполняются, данные никуда не отправляются, юрист-партнёр не подключён.</p>' +
+      '<div class="banner banner--warn" style="margin-top:.9rem"><div>Условия и стоимость этого этапа не определены — в прототипе они намеренно не показываются, чтобы не выдумывать цифры.</div></div>' +
+      "</div>" +
+      '<div class="card card--flat" style="margin-top:.9rem"><p class="small"><b>Что уже работает бесплатно:</b> карта шагов сценария «' + esc(sc.title) + '», список документов и органов по каждому шагу, и первоисточник под каждой цифрой — открывается кликом по коду нормы.</p></div>' +
+      '<button class="btn btn--sec btn--wide" type="button" data-back="1" style="margin-top:1rem">← Вернуться к шагам</button>';
+  }
+
+  /* ---------- карточка нормы ---------- */
+  var lastFocus = null;
+  function openNorm(id) {
+    var n = NORMS[id];
+    if (!n) return;
+    var lv = LEVEL[n.level] || LEVEL.unverified;
+    var h = '<span class="nid">' + esc(id) + "</span>" +
+      '<h2 id="modal-title">' + esc(n.title) + "</h2>" +
+      '<div class="metaline"><span class="badge ' + lv.badge + '">' + esc(lv.txt) + "</span>" +
+      '<span class="badge badge--n">Проверено: ' + esc(n.checked) + "</span></div>";
+
+    h += '<div class="norm-sec"><div class="norm-sec__h">Акт и раздел</div><div style="font-size:.94rem">' + esc(n.act) +
+      (n.section ? '<div class="small" style="margin-top:.15rem">' + esc(n.section) + "</div>" : "") + "</div></div>";
+    h += '<div class="norm-sec"><div class="norm-sec__h">Орган</div><div style="font-size:.94rem">' + esc(n.organ) + "</div></div>";
+    if (n.gist) h += '<div class="norm-sec"><div class="norm-sec__h">Суть</div><div style="font-size:.94rem">' + esc(n.gist) + "</div></div>";
+    if (n.debunk) h += '<div class="norm-sec"><div class="banner banner--risk"><div>' + rich(n.debunk) + "</div></div></div>";
+    if (n.orig) {
+      h += '<div class="norm-sec"><div class="norm-sec__h">Цитата-оригинал · ' + esc(n.orig.label) + "</div>" +
+        '<div class="quote' + (n.orig.lang === "th" ? " quote--th" : "") + '" lang="' + esc(n.orig.lang) + '">' + esc(n.orig.text) + "</div></div>";
+    }
+    if (n.ru) h += '<div class="norm-sec"><div class="norm-sec__h">Русский пересказ (неофициальный)</div><div class="quote">' + esc(n.ru) + "</div></div>";
+    if (n.src && n.src.length) {
+      h += '<div class="norm-sec"><div class="norm-sec__h">Источник</div>' + n.src.map(function (s) {
+        if (!s.u) return '<div class="small">' + esc(s.t) + "</div>";
+        return '<div class="small" style="margin-bottom:.4rem">' + esc(s.t) +
+          '<br><a class="srcbtn" href="' + esc(s.u) + '" target="_blank" rel="noopener noreferrer">' + esc(s.u) + " ↗</a></div>";
+      }).join("") + "</div>";
+    }
+    if (n.conflict) {
+      h += '<div class="norm-sec"><div class="norm-sec__h">Конфликт источников</div><div class="conf">' +
+        "<b>" + esc(n.conflict.who) + "</b> — " + esc(n.conflict.claims) +
+        (n.conflict.u ? '<br><a class="srcbtn" href="' + esc(n.conflict.u) + '" target="_blank" rel="noopener noreferrer">' + esc(n.conflict.u) + " ↗</a>" : "") +
+        '<div style="margin-top:.45rem"><b>Как разрешён:</b> ' + esc(n.conflict.verdict) + "</div></div></div>";
+    }
+    if (n.notes && n.notes.length) {
+      h += '<div class="norm-sec"><div class="norm-sec__h">Оговорки корпуса</div><ul class="small" style="padding-left:1.1em">' +
+        n.notes.map(function (x) { return '<li style="margin-bottom:.3rem">' + esc(x) + "</li>"; }).join("") + "</ul></div>";
+    }
+    h += '<div class="disc"><b>Перевод неофициальный.</b> Юридическую силу имеет оригинальный текст нормы на языке источника. ' +
+      "Карточка показывает состояние источника на дату проверки — право могло измениться позже.</div>";
+
+    el("modal-content").innerHTML = h;
+    lastFocus = document.activeElement;
+    el("modal").hidden = false;
+    document.body.style.overflow = "hidden";
+    el("modal-box").focus();
+  }
+  function closeModal() {
+    if (el("modal").hidden) return;
+    el("modal").hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  /* ---------- события ---------- */
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-norm],[data-chip],[data-opt],[data-open],[data-back],[data-prepare],[data-close],[data-rebranch]");
+    if (!t) return;
+    if (t.hasAttribute("data-norm")) { e.preventDefault(); return openNorm(t.getAttribute("data-norm")); }
+    if (t.hasAttribute("data-close")) return closeModal();
+    if (t.hasAttribute("data-chip")) {
+      el("q").value = t.getAttribute("data-chip");
+      return doSearch(t.getAttribute("data-chip"));
+    }
+    if (t.hasAttribute("data-opt")) return pickOpt(parseInt(t.getAttribute("data-opt"), 10));
+    if (t.hasAttribute("data-open")) {
+      var b = t.getAttribute("data-branch");
+      return openScenario(t.getAttribute("data-open"), b || null);
+    }
+    if (t.hasAttribute("data-rebranch")) { S.qi = 1; return go("view-quiz", renderQuiz); }
+    if (t.hasAttribute("data-prepare")) return go("view-prepare", renderPrepare);
+    if (t.hasAttribute("data-back")) return back();
+  });
+  el("modal-x").addEventListener("click", closeModal);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeModal();
+  });
+  el("search-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = el("q").value.trim();
+    if (v) doSearch(v);
+  });
+  el("home-btn").addEventListener("click", function () {
+    stack = [{ v: "view-home", render: renderHome, S: JSON.parse(JSON.stringify(S)) }];
+    renderHome(); paint("view-home");
+  });
+
+  /* ---------- старт ---------- */
+  renderHome();
+  stack.push({ v: "view-home", render: renderHome, S: JSON.parse(JSON.stringify(S)) });
+  paint("view-home");
+})();
+
+</script>
+</body>
+</html>
