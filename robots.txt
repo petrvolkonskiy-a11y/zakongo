@@ -1,0 +1,25 @@
+# zakongo.com — robots.txt
+User-agent: *
+Allow: /
+
+# Явно разрешаем ИИ-краулеры: в нише «экспаты и право» вопрос чаще задают
+# ассистенту, чем поисковику — цитируемость в AI-ответах для нас первичный канал.
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: YandexAdditional
+Allow: /
+
+# Карта сайта для ИИ-агентов: https://zakongo.com/llms.txt
+Sitemap: https://zakongo.com/sitemap.xml
