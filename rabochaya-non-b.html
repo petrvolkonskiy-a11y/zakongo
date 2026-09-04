@@ -117,21 +117,31 @@ html.js .nojs-only{display:none !important}
 .hdr{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--rule)}
 .hdr__in{max-width:74rem;margin:0 auto;padding:.5rem 1rem;display:flex;flex-wrap:wrap;
   align-items:center;gap:.5rem .75rem;min-height:3rem}
-/* Вордмарк вместо текстового логотипа (виза владельца 04.09.2026, вариант B).
+/* Логотип-локап: компас 48px + слово (виза владельца 04.09.2026, вариант B
+   выбран РАДИ видимого штампа-компаса — мелкий знак внутри вордмарка забракован).
+   48px — порог арт-директора: ниже насечки знака слипаются. Отсюда и высота
+   шапки 65px вместо 61px, это осознанная плата за читаемый знак.
    Высота в PX и намеренно НЕ растёт от --scale — по той же причине, что рядом
-   не растёт кеглемер: шапка это хром, а не содержание, и логотип из-под 1.4.4
-   WCAG выведен как логотип. Вордмарк на 50% шире прежнего текста, поэтому
-   растущий вариант выдавливал липкую шапку в две строки на живых ширинах:
-   замер бюджета — на 390px+150% место 342px при кеглемере 171 и зазоре 18,
-   на 416px+125% ещё и «Таиланд» 81px. 16px — максимум, при котором шапка ни на
-   одной паре (320/360/390/414/416/768/1440 × 100/125/150%) не стала выше, чем
-   была с текстовым логотипом. Масштаб страницы браузером логотип увеличивает.
+   не растёт кеглемер: шапка это хром, а не содержание, и логотип из-под WCAG
+   1.4.4 выведен как логотип. Локап 160px шириной: на 390px влезает одной
+   строкой при кегле 100% и 125% (бюджет 182 и 167px); на 150% и на 320px
+   кеглемер уезжает на вторую строку — это разрешённый перенос, а не поломка,
+   горизонтального скролла нет нигде.
    aspect-ratio равен viewBox файла: без него место под SVG не зарезервировано
    до его загрузки — шапка дёргается (CLS). */
 .brand{display:inline-flex;align-items:center;text-decoration:none}
-.brand__logo{display:block;height:16px;width:auto;aspect-ratio:4105.5/723.5}
+.brand__logo{display:block;height:44px;width:auto;aspect-ratio:6285.9/1890}
+/* 48px — порог читаемости насечек, держим его везде, где локап (160px) влезает
+   в строку рядом с кеглемером. Ниже 400px не влезает даже на кегле 100%, там
+   44px (нижняя граница, разрешённая владельцем) — это спасает 360px и 390px
+   от разъезда шапки в две строки. */
+@media (min-width:25rem){.brand__logo{height:48px}}
 .hdr__country{color:var(--ink-muted);font-size:1rem;display:none}
-@media (min-width:26rem){.hdr__country{display:inline}}
+/* «Таиланд» — подпись контекста, а не навигация, поэтому она уступает место
+   логотипу: показываем с 34rem, где локап + подпись + кеглемер живут в одну
+   строку на любом кегле. На 26rem (было) подпись появлялась ровно там, где
+   места уже нет, и роняла шапку в две строки на 416px. */
+@media (min-width:34rem){.hdr__country{display:inline}}
 /* Переключатель кегля намеренно НЕ масштабируется вместе с --scale:
    контрол не должен расти от настройки, которой он управляет (иначе на 150%
    он выдавливает шапку за экран — поймано QA 29.08). Отсюда размеры в px. */
@@ -438,7 +448,7 @@ html{scroll-behavior:smooth}
 <body>
 
 <a class="skip" href="#karta">Сразу к карте шагов</a>
-<header class="hdr"><div class="hdr__in"><a class="brand" href="/" aria-label="ZakonGo — на главную"><img class="brand__logo" src="/assets/logo-zakongo.svg" alt="" width="91" height="16" fetchpriority="high"></a><span class="hdr__country">Таиланд</span><div class="aa js-only" role="group" aria-label="Размер текста"><span class="aa__lbl" aria-hidden="true">Aa</span><button type="button" data-scale="1" aria-pressed="true">100<span class="vh">%</span></button><button type="button" data-scale="1.25" aria-pressed="false">125<span class="vh">%</span></button><button type="button" data-scale="1.5" aria-pressed="false">150<span class="vh">%</span></button></div></div></header>
+<header class="hdr"><div class="hdr__in"><a class="brand" href="/" aria-label="ZakonGo — на главную"><img class="brand__logo" src="/assets/logo-zakongo.svg" alt="" width="160" height="48" fetchpriority="high"></a><span class="hdr__country">Таиланд</span><div class="aa js-only" role="group" aria-label="Размер текста"><span class="aa__lbl" aria-hidden="true">Aa</span><button type="button" data-scale="1" aria-pressed="true">100<span class="vh">%</span></button><button type="button" data-scale="1.25" aria-pressed="false">125<span class="vh">%</span></button><button type="button" data-scale="1.5" aria-pressed="false">150<span class="vh">%</span></button></div></div></header>
 <div class="wrap">
 <nav class="crumbs" aria-label="Вы находитесь здесь"><ol><li><a href="/">ZakonGo</a></li><li><a href="/#vizy">Визы</a></li><li aria-current="page">Рабочая Non-B</li></ol></nav>
 <div class="layout">
