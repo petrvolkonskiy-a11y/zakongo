@@ -114,8 +114,19 @@ html:not(.js) .js-only{display:none !important}
 .hdr{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--rule)}
 .hdr__in{max-width:74rem;margin:0 auto;padding:.5rem 1rem;display:flex;flex-wrap:wrap;
   align-items:center;gap:.5rem .75rem;min-height:3rem}
-.brand{font-weight:700;letter-spacing:-.02em;color:var(--ink);text-decoration:none;font-size:1.0625rem}
-.brand span{color:var(--accent)}
+/* Вордмарк вместо текстового логотипа (виза владельца 04.09.2026, вариант B).
+   Высота в PX и намеренно НЕ растёт от --scale — по той же причине, что рядом
+   не растёт кеглемер: шапка это хром, а не содержание, и логотип из-под 1.4.4
+   WCAG выведен как логотип. Вордмарк на 50% шире прежнего текста, поэтому
+   растущий вариант выдавливал липкую шапку в две строки на живых ширинах:
+   замер бюджета — на 390px+150% место 342px при кеглемере 171 и зазоре 18,
+   на 416px+125% ещё и «Таиланд» 81px. 16px — максимум, при котором шапка ни на
+   одной паре (320/360/390/414/416/768/1440 × 100/125/150%) не стала выше, чем
+   была с текстовым логотипом. Масштаб страницы браузером логотип увеличивает.
+   aspect-ratio равен viewBox файла: без него место под SVG не зарезервировано
+   до его загрузки — шапка дёргается (CLS). */
+.brand{display:inline-flex;align-items:center;text-decoration:none}
+.brand__logo{display:block;height:16px;width:auto;aspect-ratio:4105.5/723.5}
 .hdr__country{color:var(--ink-muted);font-size:1rem;display:none}
 @media (min-width:26rem){.hdr__country{display:inline}}
 .aa{margin-left:auto;display:flex;flex-wrap:wrap;align-items:center;gap:.25rem}
@@ -245,7 +256,7 @@ html{scroll-behavior:smooth}
 <!-- ══ ХЕДЕР ═══════════════════════════════════════════════════════════ -->
 <header class="hdr">
   <div class="hdr__in">
-    <a class="brand" href="/">Zakon<span>Go</span></a>
+    <a class="brand" href="/" aria-label="ZakonGo — на главную"><img class="brand__logo" src="/assets/logo-zakongo.svg" alt="" width="91" height="16" fetchpriority="high"></a>
     <span class="hdr__country">Таиланд</span>
     <div class="aa js-only" role="group" aria-label="Размер текста">
       <span class="aa__lbl" aria-hidden="true">Aa</span>

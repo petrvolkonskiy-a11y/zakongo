@@ -1,4 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="ZakonGo">
+  <title>ZakonGo</title>
+  <style>
+    svg { --zg-ink: #F9F8F4; --zg-acc: #E39468; }
+  </style>
   <rect width="100" height="100" rx="18" fill="#1D3B63"/>
-  <path d="M24 24 H76 V36 L44 64 H76 V76 H24 V64 L56 36 H24 Z" fill="#F9F8F4"/>
+  <g transform="translate(50.00 50.00) scale(0.12558)">
+    <path d="M 112.87 -184.18 A 216.02 216.02 0 1 0 184.18 -112.87" fill="none" stroke="var(--zg-ink)" stroke-width="109.47" stroke-linecap="butt"/>
+      <path d="M 199.11 -199.11 L 50.73 -110.08 L 110.08 -50.73 Z" fill="var(--zg-acc)"/>
+  </g>
 </svg>
