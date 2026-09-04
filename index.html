@@ -26,7 +26,7 @@
 {"@context":"https://schema.org","@graph":[
 {"@type":"Organization","@id":"https://zakongo.com/#org","name":"ZakonGo","url":"https://zakongo.com/","logo":"https://zakongo.com/apple-touch-icon.png","description":"Правовой навигатор для русскоязычных экспатов в Таиланде: пошаговые сценарии со ссылками на первоисточники норм."},
 {"@type":"WebSite","@id":"https://zakongo.com/#site","name":"ZakonGo","url":"https://zakongo.com/","inLanguage":"ru","publisher":{"@id":"https://zakongo.com/#org"}},
-{"@type":"ItemList","@id":"https://zakongo.com/#scenarios","name":"Сценарии права Таиланда","numberOfItems":12,"itemListOrder":"https://schema.org/ItemListUnordered","itemListElement":[
+{"@type":"ItemList","@id":"https://zakongo.com/#scenarios","name":"Сценарии права Таиланда","numberOfItems":13,"itemListOrder":"https://schema.org/ItemListUnordered","itemListElement":[
 {"@type":"ListItem","position":1,"url":"https://zakongo.com/vezd-turist.html","name":"Въезд в Таиланд туристу"},
 {"@type":"ListItem","position":2,"url":"https://zakongo.com/bezviz.html","name":"Таиланд без визы для россиян"},
 {"@type":"ListItem","position":3,"url":"https://zakongo.com/dtv.html","name":"Виза DTV"},
@@ -38,7 +38,8 @@
 {"@type":"ListItem","position":9,"url":"https://zakongo.com/nalogovyj-rezident.html","name":"Налоговый резидент Таиланда"},
 {"@type":"ListItem","position":10,"url":"https://zakongo.com/bankovskij-schet.html","name":"Счёт в банке Таиланда"},
 {"@type":"ListItem","position":11,"url":"https://zakongo.com/kondo.html","name":"Покупка кондоминиума иностранцем"},
-{"@type":"ListItem","position":12,"url":"https://zakongo.com/transport-prava.html","name":"Водительские права и транспорт"}]}]}
+{"@type":"ListItem","position":12,"url":"https://zakongo.com/transport-prava.html","name":"Водительские права и транспорт"},
+{"@type":"ListItem","position":13,"url":"https://zakongo.com/zaprety.html","name":"Вейп, каннабис и алкоголь: запреты"}]}]}
 </script>
 
 <script>document.documentElement.className+=' js';try{var s=localStorage.getItem('zg-scale');if(s)document.documentElement.style.setProperty('--scale',s);}catch(e){}</script>
@@ -263,8 +264,8 @@ html{scroll-behavior:smooth}
        белая карточка. Лид живёт внутри карточки, а не между ними: иначе
        поиск (главное действие) уезжает с первого экрана телефона. -->
   <div class="meta">
-    <p class="meta__check num">В базе <b>12 сценариев</b> по Таиланду · последняя сверка
-      <b>03.09.2026</b> · у каждой нормы свой статус проверки и своя дата</p>
+    <p class="meta__check num">В базе <b>13 сценариев</b> по Таиланду · последняя сверка
+      <b>04.09.2026</b> · у каждой нормы свой статус проверки и своя дата</p>
     <p class="meta__who">Это справка, а не юридическая консультация · чего в базе нет —
       <a href="#net">говорим прямо</a></p>
   </div>
@@ -295,13 +296,14 @@ html{scroll-behavior:smooth}
           <li><button class="chip" type="button" data-ex="работать удалённо">работать удалённо</button></li>
           <li><button class="chip" type="button" data-ex="открыть счёт в банке">открыть счёт в банке</button></li>
           <li><button class="chip" type="button" data-ex="арендовать байк">арендовать байк</button></li>
+          <li><button class="chip" type="button" data-ex="можно ли вейп">можно ли вейп</button></li>
           <li><button class="chip" type="button" data-ex="надо ли платить налоги">платить ли налоги</button></li>
         </ul>
       </div>
 
       <div class="res js-only" id="res" hidden>
         <div id="res-live" role="status" aria-live="polite"></div>
-        <button class="res__reset" type="button" id="res-reset">Показать все 12 сценариев</button>
+        <button class="res__reset" type="button" id="res-reset">Показать все 13 сценариев</button>
       </div>
     </div>
   </section>
@@ -436,6 +438,22 @@ html{scroll-behavior:smooth}
 
       </div>
     </div>
+
+    <div class="area" data-area>
+      <h3 id="zaprety">Быт и запреты</h3>
+      <p class="area__n">1 сценарий · привычки, которые в Таиланде становятся составом</p>
+      <div class="related">
+
+        <article class="rel" data-sc="zaprety">
+          <p class="rel__top">Точнее всего</p>
+          <h4><a href="/zaprety.html">Вейп, каннабис и алкоголь: запреты</a></h4>
+          <p>Вейп запрещён полностью, каннабис — только по тайскому рецепту, вывоз —
+            капкан номер один. Санкции с оригиналами норм.</p>
+          <p class="rel__ok num">Сверено 04.09.2026</p>
+        </article>
+
+      </div>
+    </div>
   </section>
 
   <!-- ══ ЧЕГО В БАЗЕ НЕТ ═══════════════════════════════════════════════ -->
@@ -447,7 +465,7 @@ html{scroll-behavior:smooth}
       <p class="flag__hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3 22 20H2Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>Карт ещё нет</p>
       <p>Регистрация компании и бизнес · аренда жилья и договор с хозяином · развод
         и раздел имущества · дети, роды и школы · наследство · страховка и медицина ·
-        ввоз питомцев · вейпы, каннабис и алкоголь.</p>
+        ввоз питомцев · дроны.</p>
       <p>Если ваш вопрос из этого списка — движок не станет подгонять под него соседний
         сценарий. Он скажет, что карты нет.</p>
     </div>
@@ -560,7 +578,11 @@ html{scroll-behavior:smooth}
     /* «водител», не «води»: короткий корень ловил «разводиться». */
     "transport-prava":  ["водител", "мву", "международное удостовер", "байк", "мотоцикл", "скутер",
                          "машин", "автомобил", "аренда байка", "вожден", "руль", "шлем", "дтп",
-                         "права", "штраф", "гаишн", "полиц"]
+                         "права", "штраф", "гаишн", "полиц"],
+    "zaprety":          ["вейп", "электронн", "жижа", "жидкость для", "iqos", "айкос", "икос",
+                         "каннабис", "марихуан", "травк", "конопл", "косяк", "cbd", "кбд",
+                         "алкогол", "спиртн", "пиво", "виски", "сухой закон", "запрещ", "запрет",
+                         "курить", "курен", "сигарет", "кальян", "бараку", "будд"]
   };
   ["vezd-turist", "bezviz", "dtv", "ltr", "pensionnaya-o-oa", "rabochaya-non-b",
    "semejnaya-non-o", "ucheba-ed"].forEach(function (id) {
@@ -592,11 +614,7 @@ html{scroll-behavior:smooth}
     { test: ["наследств", "завещан", "смерт", "похорон"],
       h: "Наследства в базе нет.", b: "", go: "" },
     { test: ["питом", "собак", "кошк", "животн", "ввоз кота", "ввоз собаки"],
-      h: "Ввоза питомцев в базе нет.", b: "", go: "" },
-    { test: ["вейп", "каннабис", "марихуан", "травк", "алкогол", "спиртн"],
-      h: "Запретов — вейпы, каннабис, алкоголь — в базе пока нет.",
-      b: "Корпус по этой теме в работе. Пока карта не сверена, страницы не будет: цена ошибки здесь — не деньги.",
-      go: "" }
+      h: "Ввоза питомцев в базе нет.", b: "", go: "" }
   ];
   /* Темы, по которым мы молчим целиком: не подсказываем «ближайшее» И не
      показываем совпадения по словарю.
