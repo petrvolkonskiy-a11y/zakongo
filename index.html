@@ -26,7 +26,7 @@
 {"@context":"https://schema.org","@graph":[
 {"@type":"Organization","@id":"https://zakongo.com/#org","name":"ZakonGo","url":"https://zakongo.com/","logo":"https://zakongo.com/apple-touch-icon.png","description":"Правовой навигатор для русскоязычных экспатов в Таиланде: пошаговые сценарии со ссылками на первоисточники норм."},
 {"@type":"WebSite","@id":"https://zakongo.com/#site","name":"ZakonGo","url":"https://zakongo.com/","inLanguage":"ru","publisher":{"@id":"https://zakongo.com/#org"}},
-{"@type":"ItemList","@id":"https://zakongo.com/#scenarios","name":"Сценарии права Таиланда","numberOfItems":13,"itemListOrder":"https://schema.org/ItemListUnordered","itemListElement":[
+{"@type":"ItemList","@id":"https://zakongo.com/#scenarios","name":"Сценарии права Таиланда","numberOfItems":14,"itemListOrder":"https://schema.org/ItemListUnordered","itemListElement":[
 {"@type":"ListItem","position":1,"url":"https://zakongo.com/vezd-turist.html","name":"Въезд в Таиланд туристу"},
 {"@type":"ListItem","position":2,"url":"https://zakongo.com/bezviz.html","name":"Таиланд без визы для россиян"},
 {"@type":"ListItem","position":3,"url":"https://zakongo.com/dtv.html","name":"Виза DTV"},
@@ -38,8 +38,9 @@
 {"@type":"ListItem","position":9,"url":"https://zakongo.com/nalogovyj-rezident.html","name":"Налоговый резидент Таиланда"},
 {"@type":"ListItem","position":10,"url":"https://zakongo.com/bankovskij-schet.html","name":"Счёт в банке Таиланда"},
 {"@type":"ListItem","position":11,"url":"https://zakongo.com/kondo.html","name":"Покупка кондоминиума иностранцем"},
-{"@type":"ListItem","position":12,"url":"https://zakongo.com/transport-prava.html","name":"Водительские права и транспорт"},
-{"@type":"ListItem","position":13,"url":"https://zakongo.com/zaprety.html","name":"Вейп, каннабис и алкоголь: запреты"}]}]}
+{"@type":"ListItem","position":12,"url":"https://zakongo.com/arenda-zhilya.html","name":"Аренда жилья и депозит"},
+{"@type":"ListItem","position":13,"url":"https://zakongo.com/transport-prava.html","name":"Водительские права и транспорт"},
+{"@type":"ListItem","position":14,"url":"https://zakongo.com/zaprety.html","name":"Вейп, каннабис и алкоголь: запреты"}]}]}
 </script>
 
 <script>document.documentElement.className+=' js';try{var s=localStorage.getItem('zg-scale');if(s)document.documentElement.style.setProperty('--scale',s);}catch(e){}</script>
@@ -264,7 +265,7 @@ html{scroll-behavior:smooth}
        белая карточка. Лид живёт внутри карточки, а не между ними: иначе
        поиск (главное действие) уезжает с первого экрана телефона. -->
   <div class="meta">
-    <p class="meta__check num">В базе <b>13 сценариев</b> по Таиланду · последняя сверка
+    <p class="meta__check num">В базе <b>14 сценариев</b> по Таиланду · последняя сверка
       <b>04.09.2026</b> · у каждой нормы свой статус проверки и своя дата</p>
     <p class="meta__who">Это справка, а не юридическая консультация · чего в базе нет —
       <a href="#net">говорим прямо</a></p>
@@ -303,7 +304,7 @@ html{scroll-behavior:smooth}
 
       <div class="res js-only" id="res" hidden>
         <div id="res-live" role="status" aria-live="polite"></div>
-        <button class="res__reset" type="button" id="res-reset">Показать все 13 сценариев</button>
+        <button class="res__reset" type="button" id="res-reset">Показать все 14 сценариев</button>
       </div>
     </div>
   </section>
@@ -409,7 +410,7 @@ html{scroll-behavior:smooth}
 
     <div class="area" data-area>
       <h3 id="nedvizhimost">Недвижимость</h3>
-      <p class="area__n">1 сценарий · что иностранец в Таиланде может оформить на себя</p>
+      <p class="area__n">2 сценария · купить, снять и не потерять депозит</p>
       <div class="related">
 
         <article class="rel" data-sc="kondo">
@@ -418,6 +419,14 @@ html{scroll-behavior:smooth}
           <p>Квота иностранной собственности, перевод денег и справка FET, налоги и сборы
             сделки, типовые риски.</p>
           <p class="rel__ok num">Сверено 26.08.2026</p>
+        </article>
+
+        <article class="rel" data-sc="arenda-zhilya">
+          <p class="rel__top">Боль №1 — депозит</p>
+          <h4><a href="/arenda-zhilya.html">Аренда жилья и депозит</a></h4>
+          <p>Что проверить в договоре до подписи, как вернуть депозит, TM30
+            и права жильца; сдача своего кондо и налоги.</p>
+          <p class="rel__ok num">Сверено 04.09.2026</p>
         </article>
 
       </div>
@@ -572,6 +581,9 @@ html{scroll-behavior:smooth}
                          "декларац", "крипт", "двойн", "сидн", "ндфл", "доход", "фнс", "автообмен"],
     "bankovskij-schet": ["банк", "счёт", "счет", "карт", "перевод денег", "swift", "свифт",
                          "открыть счёт", "открыть счет", "снять налич", "банкомат", "atm", "банков"],
+    "arenda-zhilya":    ["аренд", "снять", "съём", "съем", "депозит", "залог", "лендлорд",
+                         "арендодател", "хозяин", "договор аренды", "tm30", "тм30", "выселя",
+                         "субаренд", "airbnb", "посуточн", "сдать", "сдаю", "жилец", "квартплат"],
     "kondo":            ["кондо", "кондоминиум", "квартир", "апартамент", "недвижим", "жиль",
                          "фрихолд", "freehold", "чанот", "chanote", "юнит", "land office", "квота",
                          "застройщик", "купить дом", "покупк", "собственност", "ипотек", "метр"],
@@ -601,10 +613,6 @@ html{scroll-behavior:smooth}
       h: "Развода и раздела имущества в базе нет.",
       b: "Рядом сверена только визовая сторона брака: что даёт и чего не даёт виза Non-O по браку с гражданином Таиланда.",
       go: "semejnaya-non-o" },
-    { test: ["аренд жиль", "снять кварт", "снять дом", "договор аренды", "арендодател", "хозяин квартиры", "депозит за кварт"],
-      h: "Аренды жилья и договора с хозяином в базе нет.",
-      b: "Рядом сверена покупка: что иностранец в Таиланде вообще может оформить на себя в собственность.",
-      go: "kondo" },
     { test: ["страхов", "медицин", "больниц", "врач", "лечен", "госпитал"],
       h: "Отдельной карты по страховке и медицине нет.",
       b: "Страховка разобрана только там, где она обязательна по норме, — в развилке пенсионных виз O-A и Non-O.",
