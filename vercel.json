@@ -3,13 +3,23 @@
   "redirects": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "www.zakongo.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.zakongo.com"
+        }
+      ],
       "destination": "https://zakongo.com/",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.zakongo.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.zakongo.com"
+        }
+      ],
       "destination": "https://zakongo.com/:path*",
       "permanent": true
     }
@@ -18,25 +28,46 @@
     {
       "source": "/assets/fonts/:file*",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/assets/:file(logo-zakongo.svg)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/assets/og/:file*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
       ]
     },
     {
       "source": "/:file(favicon.svg|favicon.ico|apple-touch-icon.png)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
       ]
     },
     {
       "source": "/:file(robots.txt|sitemap.xml|llms.txt)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
       ]
     }
   ]

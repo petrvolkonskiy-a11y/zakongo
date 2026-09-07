@@ -14,7 +14,11 @@
 <meta property="og:title" content="Как открыть счёт в банке Таиланда россиянину 2026">
 <meta property="og:description" content="Закон Таиланда счёт туристу не запрещает — запрещают политики банков. Кто реально откроет счёт россиянину, какие документы собрать и как завести деньги из России. Каждая норма — со ссылкой и датой сверки.">
 <meta property="og:url" content="https://zakongo.com/bankovskij-schet.html">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://zakongo.com/assets/og/bankovskij-schet.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ZakonGo · Как открыть счёт в банке Таиланда россиянину 2026">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -314,6 +318,14 @@ section[id]{scroll-margin-top:4.5rem}
 .cols h3{font-size:1.0625rem;margin-bottom:.4rem}
 .cols ul{padding-left:1.15rem;margin:0}
 .cols li{margin:.3rem 0}
+/* Reflow 320 px × кегль 150% — WCAG 2.2 AA 1.4.10 (QA 07.09.2026).
+   Грид-элемент по умолчанию min-width:auto, поэтому колонка 1fr не
+   может стать уже min-content — самого длинного слова. При кегле 150%
+   корневой шрифт 24 px, «полуквалифицированные» требует ~324 px, и
+   страница едет вбок. Приём тот же, что уже стоит на .norm__req. */
+body{overflow-wrap:break-word}
+.kv div>dt,.kv div>dd,.cols>*,fieldset{min-width:0}
+.kv dt,.kv dd,.cols h3,.cols li,.cols p{overflow-wrap:anywhere}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
   min-height:3rem;padding:.75rem 1.5rem;background:var(--accent);color:#fff;border:1px solid var(--accent);
   border-radius:var(--radius);font:inherit;font-weight:600;text-decoration:none;cursor:pointer;width:100%}
