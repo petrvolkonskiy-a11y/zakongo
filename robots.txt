@@ -21,5 +21,9 @@ Allow: /
 User-agent: YandexAdditional
 Allow: /
 
+# llms.txt — служебный файл для ИИ-агентов, не для поисковой выдачи Google/Яндекс
+User-agent: *
+Disallow: /llms.txt
+
 # Карта сайта для ИИ-агентов: https://zakongo.com/llms.txt
 Sitemap: https://zakongo.com/sitemap.xml
