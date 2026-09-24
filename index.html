@@ -34,7 +34,7 @@
 {"@context":"https://schema.org","@graph":[
 {"@type":"Organization","@id":"https://zakongo.com/#org","name":"ZakonGo","url":"https://zakongo.com/","logo":"https://zakongo.com/apple-touch-icon.png","description":"Правовой навигатор для русскоязычных экспатов в Таиланде: пошаговые сценарии со ссылками на первоисточники норм."},
 {"@type":"WebSite","@id":"https://zakongo.com/#site","name":"ZakonGo","url":"https://zakongo.com/","inLanguage":"ru","publisher":{"@id":"https://zakongo.com/#org"}},
-{"@type":"ItemList","@id":"https://zakongo.com/#scenarios","name":"Сценарии права Таиланда","numberOfItems":23,"itemListOrder":"https://schema.org/ItemListUnordered","itemListElement":[
+{"@type":"ItemList","@id":"https://zakongo.com/#scenarios","name":"Сценарии права Таиланда","numberOfItems":26,"itemListOrder":"https://schema.org/ItemListUnordered","itemListElement":[
 {"@type":"ListItem","position":1,"url":"https://zakongo.com/vezd-turist.html","name":"Въезд в Таиланд туристу"},
 {"@type":"ListItem","position":2,"url":"https://zakongo.com/bezviz.html","name":"Таиланд без визы для россиян"},
 {"@type":"ListItem","position":3,"url":"https://zakongo.com/dtv.html","name":"Виза DTV"},
@@ -56,8 +56,11 @@
 {"@type":"ListItem","position":19,"url":"https://zakongo.com/bankovskij-schet.html","name":"Счёт в банке Таиланда"},
 {"@type":"ListItem","position":20,"url":"https://zakongo.com/kondo.html","name":"Покупка кондоминиума иностранцем"},
 {"@type":"ListItem","position":21,"url":"https://zakongo.com/arenda-zhilya.html","name":"Аренда жилья и депозит"},
-{"@type":"ListItem","position":22,"url":"https://zakongo.com/transport-prava.html","name":"Водительские права и транспорт"},
-{"@type":"ListItem","position":23,"url":"https://zakongo.com/zaprety.html","name":"Вейп, каннабис и алкоголь: запреты"}]}]}
+{"@type":"ListItem","position":22,"url":"https://zakongo.com/dom-zemlya-lizkhold.html","name":"Дом, земля и лизхолд"},
+{"@type":"ListItem","position":23,"url":"https://zakongo.com/transport-prava.html","name":"Водительские права и транспорт"},
+{"@type":"ListItem","position":24,"url":"https://zakongo.com/zaprety.html","name":"Вейп, каннабис и алкоголь: запреты"},
+{"@type":"ListItem","position":25,"url":"https://zakongo.com/zaderzhanie-prava.html","name":"Задержание полицией: ваши права"},
+{"@type":"ListItem","position":26,"url":"https://zakongo.com/brak-i-razvod.html","name":"Брак и развод в Таиланде"}]}]}
 </script>
 
 <script>document.documentElement.className+=' js';try{var s=localStorage.getItem('zg-scale');if(s)document.documentElement.style.setProperty('--scale',s);}catch(e){}</script>
@@ -303,8 +306,8 @@ html{scroll-behavior:smooth}
        белая карточка. Лид живёт внутри карточки, а не между ними: иначе
        поиск (главное действие) уезжает с первого экрана телефона. -->
   <div class="meta">
-    <p class="meta__check num">В базе <b>23 сценария</b> по Таиланду · последняя сверка
-      <b>15.09.2026</b> · у каждой нормы свой статус проверки и своя дата</p>
+    <p class="meta__check num">В базе <b>26 сценариев</b> по Таиланду · последняя сверка
+      <b>24.09.2026</b> · у каждой нормы свой статус проверки и своя дата</p>
     <p class="meta__who">Это справка, а не юридическая консультация · чего в базе нет —
       <a href="#net">говорим прямо</a></p>
   </div>
@@ -342,7 +345,7 @@ html{scroll-behavior:smooth}
 
       <div class="res js-only" id="res" hidden>
         <div id="res-live" role="status" aria-live="polite"></div>
-        <button class="res__reset" type="button" id="res-reset">Показать все 23 сценария</button>
+        <button class="res__reset" type="button" id="res-reset">Показать все 26 сценариев</button>
       </div>
     </div>
   </section>
@@ -527,7 +530,7 @@ html{scroll-behavior:smooth}
 
     <div class="area" data-area>
       <h3 id="nedvizhimost">Недвижимость</h3>
-      <p class="area__n">2 сценария · купить, снять и не потерять депозит</p>
+      <p class="area__n">3 сценария · купить, снять и не потерять депозит</p>
       <div class="related">
 
         <article class="rel" data-sc="kondo">
@@ -546,6 +549,13 @@ html{scroll-behavior:smooth}
           <p class="rel__ok num">Сверено 04.09.2026</p>
         </article>
 
+
+        <article class="rel" data-sc="dom-zemlya-lizkhold">
+          <p class="rel__top">Дом и земля</p>
+          <h4><a href="/dom-zemlya-lizkhold.html">Дом, земля и лизхолд</a></h4>
+          <p>Почему землю на своё имя не оформить, что даёт аренда на 30 лет, чего стоит обещание «30+30+30» и чем грозят номинальные схемы.</p>
+          <p class="rel__ok num">Сверено 24.09.2026</p>
+        </article>
       </div>
     </div>
 
@@ -580,6 +590,36 @@ html{scroll-behavior:smooth}
 
       </div>
     </div>
+
+    <div class="area" data-area>
+      <h3 id="policiya">Полиция</h3>
+      <p class="area__n">1 сценарий · что делать, если вас задержали</p>
+      <div class="related">
+
+        <article class="rel" data-sc="zaderzhanie-prava">
+          <p class="rel__top">Точнее всего</p>
+          <h4><a href="/zaderzhanie-prava.html">Задержание полицией: ваши права</a></h4>
+          <p>Что полиция обязана сказать, как вызвать консула и адвоката, сколько могут держать до суда и что нельзя подписывать без перевода.</p>
+          <p class="rel__ok num">Сверено 24.09.2026</p>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="area" data-area>
+      <h3 id="semya">Семья</h3>
+      <p class="area__n">1 сценарий · брак, развод и что будет с имуществом</p>
+      <div class="related">
+
+        <article class="rel" data-sc="brak-i-razvod">
+          <p class="rel__top">Точнее всего</p>
+          <h4><a href="/brak-i-razvod.html">Брак и развод в Таиланде</a></h4>
+          <p>Как расписаться в ампхе, признают ли брак в России, брачный договор, раздел имущества и земли при разводе.</p>
+          <p class="rel__ok num">Сверено 24.09.2026</p>
+        </article>
+
+      </div>
+    </div>
   </section>
 
   <!-- ══ ЧЕГО В БАЗЕ НЕТ ═══════════════════════════════════════════════ -->
@@ -589,8 +629,7 @@ html{scroll-behavior:smooth}
       честный и короткий, а незакрытые названы вслух.</p>
     <div class="flag flag--practice">
       <p class="flag__hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3 22 20H2Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>Карт ещё нет</p>
-      <p>Регистрация компании и бизнес · аренда жилья и договор с хозяином · развод
-        и раздел имущества · дети, роды и школы · наследство · страховка и медицина ·
+      <p>Регистрация компании и бизнес · аренда жилья и договор с хозяином · дети, роды и школы · наследство · страховка и медицина ·
         ввоз питомцев · дроны.</p>
       <p>Если ваш вопрос из этого списка — движок не станет подгонять под него соседний
         сценарий. Он скажет, что карты нет.</p>
@@ -674,6 +713,9 @@ html{scroll-behavior:smooth}
               "пребыв", "внж", "зимовк"];
 
   var KW = {
+    "brak-i-razvod": ["брак", "жениться", "женит", "замуж", "расписат", "ампхе", "развод", "расторж", "разойт", "брачный договор", "свадьб", "однопол"],
+    "dom-zemlya-lizkhold": ["земл", "участок", "дом на земле", "виллу", "вилла", "лизхолд", "leasehold", "аренда земли", "30+30", "суперфиций", "узуфрукт", "номинал", "купить дом"],
+    "zaderzhanie-prava": ["задерж", "арест", "полици", "полицей", "адвокат", "консул", "допрос", "залог", "участок полиции", "протокол"],
     "vezd-turist":      ["въезд", "въехать", "прилет", "прилёт", "аэропорт", "граница", "погранич",
                          "паспортный контроль", "впустят", "не пустят", "tdac", "тдак", "обратный билет",
                          "наличн", "сколько денег", "турист", "отпуск", "первый раз"],
@@ -750,10 +792,6 @@ html{scroll-behavior:smooth}
       h: "Регистрации компании в Таиланде в базе нет.",
       b: "Ближайшее, что сверено: как иностранец легально работает на тайскую компанию — виза Non-B и разрешение на работу.",
       go: "rabochaya-non-b" },
-    { test: ["развод", "расторж", "разойт", "алимент"],
-      h: "Развода и раздела имущества в базе нет.",
-      b: "Рядом сверена только визовая сторона брака: что даёт и чего не даёт виза Non-O по браку с гражданином Таиланда.",
-      go: "semejnaya-non-o" },
     { test: ["страхов", "медицин", "больниц", "врач", "лечен", "госпитал"],
       h: "Отдельной карты по страховке и медицине нет.",
       b: "Страховка разобрана только там, где она обязательна по норме, — в развилке пенсионных виз O-A и Non-O.",
@@ -770,7 +808,7 @@ html{scroll-behavior:smooth}
      Поймано QA 04.09: «банкротство» содержит «банк» → движок предлагал
      страницу про банковский счёт. Совпадение по подстроке в такой теме хуже
      пустого ответа, поэтому STOP проверяется ПЕРВЫМ и глушит матчинг. */
-  var STOP = ["банкрот", "уголов", "наркот", "взятк", "тюрьм", "арест", "депортац", "суд "];
+  var STOP = ["банкрот", "уголов", "наркот", "взятк", "тюрьм", "депортац", "суд "];
   function stopped(q) {
     for (var i = 0; i < STOP.length; i++) if (q.indexOf(STOP[i]) !== -1) return true;
     return false;
